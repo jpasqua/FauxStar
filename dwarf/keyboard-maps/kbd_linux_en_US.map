@@ -139,6 +139,27 @@ VK_F10 : Margins
 VK_F11 : Font
 # VK_F12 (unmapped => free)
 
+# Oddballs for macOS.
+VK_UNDERSCORE : Dash
+VK_PLUS : Equal
+VK_EXCLAMATION_MARK : One
+VK_AT : Two
+VK_NUMBER_SIGN : Three
+VK_DOLLAR : Four
+VK_CIRCUMFLEX : Six
+VK_AMPERSAND : Seven
+VK_ASTERISK : Eight
+VK_LEFT_PARENTHESIS : Nine
+VK_RIGHT_PARENTHESIS : Zero
+VK_MINUS : Dash
+VK_EQUALS : Equal
+VK_BRACERIGHT : RightBracket
+VK_BRACELEFT : LeftBracket
+VK_LESS : Comma
+VK_GREATER : Period
+VK_COLON : SemiColon
+VK_QUOTEDBL : Quote
+
 # Xerox special keys
 VK_ESCAPE : Stop
 Ctrl!VK_ESCAPE : Stop
