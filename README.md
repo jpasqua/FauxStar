@@ -1,8 +1,19 @@
-# Dwarf Installation and Usage Notes
+# FauxStar
 
-This is a repackaging of the wonderful [Dwarf emulator](https://github.com/devhawala/dwarf) by [@devhawala](https://github.com/devhawala). There are small changes to the emulator to allow for full screen operation without a status line or toolbar, and to deal with some minor issues that arose in testing. The changes can be found in [this fork](https://github.com/jpasqua/dwarf).
+This is a repackaging of the wonderful [Dwarf emulator](https://github.com/devhawala/dwarf) by [@devhawala](https://github.com/devhawala). There are small changes to the emulator to allow for full screen operation without a status line or toolbar, and to deal with some minor issues that arose in testing. The changes can be found in [this fork](https://github.com/jpasqua/dwarf). For much more detailed information on the emulator, please refer to the original [repo](https://github.com/devhawala/dwarf).
+
+Though the name *FauxStar* puts a lot of emphasis on the [Star](https://en.wikipedia.org/wiki/Xerox_Star) part of this, there is actually no Star image included! ViewPoint, the next version of Star is the earliest version of the image to run here. In this context I'm using "Star" as a shorthand for a [Xerox "D" machine](https://en.wikipedia.org/wiki/Xerox_Star#Hardware) capable of running the Star software and the [Xerox Development Environment](https://web.archive.org/web/20041204132344/http://www.apearson.f2s.com/xde.html) (XDE)
 
 ***Limitations***: This packaging has only been tested on Raspberry Pi and Mac. There are no .cmd files for Windows. However, you can use the `dwarf.jar` file from this repo as a drop in replacement for the one in the original repo and use the install/operation process described there.
+
+## Nomenclature
+
+| Term          | Meaning        |
+|:------------- |:---------------|
+| Dwarf         | The name for the emulator itself. Dwarf has two emulation types: *draco* and *duchess*      |
+| draco         | An emulation of the [Xerox 6085](https://en.wikipedia.org/wiki/Xerox_Daybreak) hardware (known at Xerox as Daybreak)|
+| duchess       | A recreation of the [GlobalView](https://en.wikipedia.org/wiki/GlobalView) engine which was an emulator running under Windows. |
+| World         | A world corresponds to an environment to run. A world is specific to an emulator type (*draco* or *duchess*) and contains a disk image and a config file with parameters.  |
 
 ## Installation
 
@@ -15,15 +26,6 @@ rm fauxstar.zip
 mv fauxstar/dwarf/ .
 rm -rf fauxstar/
 ```
-
-## Nomenclature
-
-| Term          | Meaning                        |
-|:------------- |:---------------|
-| Dwarf      | The name for the emulator itself. Dwarf has two emulation types: *draco* and *duchess*|
-| draco | An emulation of the [Xerox 6085](https://en.wikipedia.org/wiki/Xerox_Daybreak) hardware (known at Xerox as Daybreak)|
-| duchess | A recreation of the [GlobalView](https://en.wikipedia.org/wiki/GlobalView) engine which was an emulator running under Windows. |
-| World      | A world corresponds to an environment to run. A world is specific to an emulator type (*draco* or *duchess*) and contains a disk image and a config file with parameters.  |
 
 ## Usage
 
@@ -137,6 +139,8 @@ dwarf
 
 ## License: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
+The license for Dwarf can be found at the [Dwarf repo](https://github.com/devhawala/dwarf).
+
 This work is licensed under a
 [Creative Commons Attribution-NonCommercial 4.0 International License][cc-by-nc].
 
@@ -146,4 +150,3 @@ This work is licensed under a
 [cc-by-nc-image]: https://licensebuttons.net/l/by-nc/4.0/88x31.png
 [cc-by-nc-shield]: https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg
 
-The license for Dwarf can be found at the [Dwarf repo](https://github.com/devhawala/dwarf).
