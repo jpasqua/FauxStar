@@ -28,7 +28,11 @@ rm fauxstar.zip
 mv FauxStar-main/dwarf/ .
 rm -rf FauxStar-main/
 cd dwarf
+```
 
+Now popuate the worlds by decompressing the disk images and copying them into the appropriate locations. The zip files can be deleted after this is done. You can delete any worlds that you don't plan to use if you want to save a little space.
+
+```
 unzip disks-6085.zip
 rm -rf disks-6085.zip
 cp disks-6085/vp2.0.5.zdisk worlds/draco/vp2.0.5
@@ -46,7 +50,6 @@ cp disks-guam/GVWIN.GRM worlds/duchess/gv_2.1_mono
 cp disks-guam/Dawn.dsk worlds/duchess/xde
 cp disks-guam/Dawn.germ worlds/duchess/xde
 rm -rf disks-guam
-
 ```
 
 ## Usage
@@ -62,7 +65,7 @@ For a guided process, provide no parameters
   dwarf/dwarf.sh
 ```
 
-When you're using the guided experience you'll be presented with a list of available worlds. If you add your own world (see below) it will appear in this list. After selecting a world from the list, you'll be asked if you wish to run in full screen mode and whether you'd like to supply any additional parameters.
+When you're using the guided experience you'll be presented with a list of available worlds. If you add your own world (see below) it will appear in this list. After selecting a world from the list, you'll be asked if you wish to run in full screen mode and whether you'd like to supply any additional parameters. Once you've answered all the questions, the emulator will be launched. The command used to launch it will be displayed in the terminal so if you'd like to run this world again, you can just copy and paste the command rather than going through the menus.
 
 When you're not using the menu, there are two required positional parameters:
 
@@ -107,19 +110,6 @@ The folder structure for dwarf is relevant if you want to add your own "worlds".
 
 ```
 dwarf
-├── disks-6085
-|   | # Clean copies of disk images that can be used to create your own worlds
-|   | # These are for use with draco
-│   ├── vp2.0.5.zdisk
-│   ├── xde5.0.zdisk
-│   └── xde5.0_2xTajo+hacks.zdisk
-├── disks-duchess
-|   | # Clean copies of disk images/germs that can be used to create your own worlds
-|   | # These are for use with duchess
-│   ├── Dawn.dsk       # An barebones XDE image
-│   ├── Dawn.germ      # A germ for use in an XDE environment
-│   ├── GVWIN001.DSK   # A clean install of GlobalView
-│   └── GVWIN.GRM      # A germ for use in an XDE environment
 ├── dwarf.jar				# The actual emulator code
 ├── dwarf.sh				# The launcher script
 ├── keyboard-maps		# Keyboard maps for various keyboards
@@ -128,7 +118,7 @@ dwarf
 └── worlds
     | # These are the disk images and configurations for various
     | # "worlds". They are broken down into images that work
-    | # with draco and those that work with duchess.
+    | # with draco (6085) and those that work with duchess (guam).
     | # Each world contains a .properties file with the same name as
     | # as the world. The launcher script relies on this. The properties
     | # file points to the disk image, the germ (if necessary), the default
@@ -139,21 +129,17 @@ dwarf
     │   │   ├── floppies
     │   │   ├── vp2.0.5.properties
     │   │   └── vp2.0.5.zdisk
-    │   ├── xde5.0
-    │   │   ├── ...
-    │   │   └── xde5.0.zdisk
-    │   └── xde5.0_2xTajo+hacks
+    │   ├── ...
+    │   └── xde5.0-1024
     │       ├── ...
-    │       └── xde5.0_2xTajo+hacks.zdisk
+    │       └── xde5.0-1024.zdisk
     └── duchess
         ├── gv_2.1_color
         │   ├── GVWIN.GRM
         │   ├── GVWIN001.DSK
         │   ├── floppies
         │   └── gv_2.1_color.properties
-        ├── gv_2.1_mono
-        │   ├── ...
-        │   └── gv_2.1_mono.properties
+        ├── ...
         └── xde
             ├── ...
             └── xde.properties
