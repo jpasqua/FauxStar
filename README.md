@@ -1,6 +1,8 @@
 # FauxStar
 
-This is a repackaging of the wonderful [Dwarf emulator](https://github.com/devhawala/dwarf) by [@devhawala](https://github.com/devhawala). There are small changes to the emulator to allow for full screen operation without a status line or toolbar, and to deal with some minor issues that arose in testing. The changes can be found in [this fork](https://github.com/jpasqua/dwarf). For much more detailed information on the emulator, please refer to the original [repo](https://github.com/devhawala/dwarf).
+# DO NOT USE - PUBLIC FOR TESTING ONLY
+
+This is a packaging of the wonderful [Dwarf emulator for the Xerox 6085](https://github.com/devhawala/dwarf) by [@devhawala](https://github.com/devhawala). It's actually a packaging of my [fork](https://github.com/jpasqua/dwarf) which has some changes in the way fullscreen operation is handled and a few other tweaks. For much more detailed information on the emulator, please refer to the original [repo](https://github.com/devhawala/dwarf).
 
 Though the name *FauxStar* puts a lot of emphasis on the [Star](https://en.wikipedia.org/wiki/Xerox_Star) part of this, there is actually no Star image included! ViewPoint, the next version of Star is the earliest version of the image to run here. In this context I'm using "Star" as a shorthand for a [Xerox "D" machine](https://en.wikipedia.org/wiki/Xerox_Star#Hardware) capable of running the Star software and the [Xerox Development Environment](https://web.archive.org/web/20041204132344/http://www.apearson.f2s.com/xde.html) (XDE)
 
@@ -25,6 +27,26 @@ unzip fauxstar.zip
 rm fauxstar.zip
 mv fauxstar/dwarf/ .
 rm -rf fauxstar/
+cd dwarf
+
+unzip disks-6085.zip
+rm -rf disks-6085.zip
+cp disks-6085/vp2.0.5.zdisk worlds/draco/vp2.0.5
+cp disks-6085/xde5.0_2xTajo+hacks.zdisk worlds/draco/xde5.0_2xTajo+hacks
+cp disks-6085/xde5.0.zdisk worlds/draco/xde5.0
+cp disks-6085/xde5.0-JP.zdisk worlds/draco/xde5.0-JP
+rm -rf disks-6085
+
+unzip disks-guam.zip
+rm -rf disks-guam.zip
+cp disks-guam/Dawn.dsk worlds/duchess/gv_2.1_color
+cp disks-guam/Dawn.germ worlds/duchess/gv_2.1_color
+cp disks-guam/Dawn.dsk worlds/duchess/gv_2.1_mono
+cp disks-guam/Dawn.germ worlds/duchess/gv_2.1_mono
+cp disks-guam/Dawn.dsk worlds/duchess/xde
+cp disks-guam/Dawn.germ worlds/duchess/xde
+rm -rf disks-guam
+
 ```
 
 ## Usage
