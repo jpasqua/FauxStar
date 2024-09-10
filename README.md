@@ -25,8 +25,8 @@ Download the repo from GitHub using any means you like. It can go into any direc
 wget https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip -O fauxstar.zip
 unzip fauxstar.zip
 rm fauxstar.zip
-mv fauxstar/dwarf/ .
-rm -rf fauxstar/
+mv FauxStar-main/dwarf/ .
+rm -rf FauxStar-main/
 cd dwarf
 
 unzip disks-6085.zip
@@ -158,6 +158,23 @@ dwarf
             ├── ...
             └── xde.properties
 ```
+
+## Internal Notes
+
+When changing or adding to the disk images:
+
+* Decompress either disks-6085.zip or disks-guam.zip
+* Add or change the disk image and or germ
+* If necessary, update the *Installation* section of this file.
+* Recompress the containing folder and delete it afterward. On macOS be sure to get rid of Mac-specific hidden files:
+
+  ```
+  zip -r disks-6085.zip disks-6085 -x "*/\.*" -x "__MACOSX"
+  rm -rf disks-6085
+  zip -r disks-guam.zip disks-guam -x "*/\.*" -x "__MACOSX"
+  rm -rf disks-guam
+  ```
+* Remove the uncompressed folder.
 
 ## License: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
