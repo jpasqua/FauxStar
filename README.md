@@ -34,15 +34,15 @@ rm -rf disks-6085.zip
 cp disks-6085/vp2.0.5.zdisk worlds/draco/vp2.0.5
 cp disks-6085/xde5.0_2xTajo+hacks.zdisk worlds/draco/xde5.0_2xTajo+hacks
 cp disks-6085/xde5.0.zdisk worlds/draco/xde5.0
-cp disks-6085/xde5.0-JP.zdisk worlds/draco/xde5.0-JP
+cp disks-6085/xde-1024.zdisk worlds/draco/xde-1024
 rm -rf disks-6085
 
 unzip disks-guam.zip
 rm -rf disks-guam.zip
-cp disks-guam/Dawn.dsk worlds/duchess/gv_2.1_color
-cp disks-guam/Dawn.germ worlds/duchess/gv_2.1_color
-cp disks-guam/Dawn.dsk worlds/duchess/gv_2.1_mono
-cp disks-guam/Dawn.germ worlds/duchess/gv_2.1_mono
+cp disks-guam/GVWIN001.DSK worlds/duchess/gv_2.1_color
+cp disks-guam/GVWIN.GRM worlds/duchess/gv_2.1_color
+cp disks-guam/GVWIN001.DSK worlds/duchess/gv_2.1_mono
+cp disks-guam/GVWIN.GRM worlds/duchess/gv_2.1_mono
 cp disks-guam/Dawn.dsk worlds/duchess/xde
 cp disks-guam/Dawn.germ worlds/duchess/xde
 rm -rf disks-guam
@@ -72,7 +72,7 @@ When you're not using the menu, there are two required positional parameters:
 		* vp2.0.5: A ViewPoint 2.0.5 Installation
 	   	* xde5.0: A barebones install of the Xerox Development Environment (XDE) 5.0
   		* xde5.0_2xTajo+hacks: An install of XDE 5.0 with extra programs
-  		* xde5.0-JP: This is like xde5.0_2xTajo+hacks, but the window positions are customized to fit into a 1024x768 area even though the *draco* screen is larger (1152x861)
+  		* xde5.0-small: This is like xde5.0_2xTajo+hacks, but the window positions are customized to fit into a 1024x768 area even though the *draco* screen is larger (1152x861)
 	* *duchess*
 		* gv_2.1_color: GlobalView 2.1 configured with a color display
       	* gv_2.1_mono: GlobalView 2.1 configured with a monochrome display
@@ -95,7 +95,7 @@ Unfortunately, shutting down the various worlds is a little inconsistent. You'll
 * **Draco**
 	* **XDE**:
 		* xde5.0: using any of the XDE menus for shutting down the system will produce an unusable disk A system running this disk must be shut down with "Stop"-button Use the `Stop` button in the emulator controls.
-		* xde5.0-JP, xde5.0_2xTajo+hacks: Use the "Boot button" in the "Boot from:" menu in the Herald.
+		* xde-1024, xde5.0_2xTajo+hacks: Use the "Boot button" in the "Boot from:" menu in the Herald.
 	* **ViewPoint**: Log out, wait until the screen turns black with the bouncing keyboard and then use the `Stop` button.
 * **Duchess**
 	* **XDE**: Use the "Boot button" in the ["Boot from:"](images/XDEBootMenu.png) menu. This is accessed using the middle button over the Herald window. The cursor icon will change to a small three-button mouse with the left button highlighted. Press the left button to confirm the shutdown. If you are running in windowed mode you will get a message on the status line telling you when it is safe to close the window. If you are running fullscreen, the display will close automatically.
