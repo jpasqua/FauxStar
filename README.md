@@ -34,7 +34,7 @@ rm -rf disks-6085.zip
 cp disks-6085/vp2.0.5.zdisk worlds/draco/vp2.0.5
 cp disks-6085/xde5.0_2xTajo+hacks.zdisk worlds/draco/xde5.0_2xTajo+hacks
 cp disks-6085/xde5.0.zdisk worlds/draco/xde5.0
-cp disks-6085/xde-1024.zdisk worlds/draco/xde-1024
+cp disks-6085/xde5.0-1024.zdisk worlds/draco/xde5.0-1024
 rm -rf disks-6085
 
 unzip disks-guam.zip
