@@ -1,6 +1,5 @@
 # FauxStar
-
-# DO NOT USE - PUBLIC FOR TESTING ONLY
+## FOR DEVELOPER TESTING ONLY
 
 This is a packaging of the wonderful [Dwarf emulator for the Xerox 6085](https://github.com/devhawala/dwarf) by [@devhawala](https://github.com/devhawala). It's actually a packaging of my [fork](https://github.com/jpasqua/dwarf) which has some changes in the way fullscreen operation is handled and a few other tweaks. For much more detailed information on the emulator, please refer to the original [repo](https://github.com/devhawala/dwarf).
 
