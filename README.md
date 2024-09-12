@@ -23,8 +23,8 @@ Download the repo from GitHub using any means you like. It can go into any direc
 ```
 # wget https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip -O fauxstar.zip
 curl -L -o FauxStar-main.zip https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip
-unzip fauxstar.zip
-rm fauxstar.zip
+unzip FauxStar-main.zip
+rm FauxStar-main.zip
 mv FauxStar-main/dwarf/ .
 rm -rf FauxStar-main/
 cd dwarf
