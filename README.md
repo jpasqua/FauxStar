@@ -21,7 +21,8 @@ Though the name *FauxStar* puts a lot of emphasis on the [Star](https://en.wikip
 Download the repo from GitHub using any means you like. It can go into any directory. For example:
 
 ```
-wget https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip -O fauxstar.zip
+# wget https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip -O fauxstar.zip
+curl -L -o FauxStar-main.zip https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip
 unzip fauxstar.zip
 rm fauxstar.zip
 mv FauxStar-main/dwarf/ .
