@@ -1,7 +1,7 @@
 # FauxStar
 ## FOR DEVELOPER TESTING ONLY
 
-This is a packaging of the wonderful [Dwarf emulator for the Xerox 6085](https://github.com/devhawala/dwarf) by [@devhawala](https://github.com/devhawala). It's actually a packaging of my [fork](https://github.com/jpasqua/dwarf) which has some changes in the way fullscreen operation is handled and a few other tweaks. For much more detailed information on the emulator, please refer to the original [repo](https://github.com/devhawala/dwarf).
+This is a packaging of the wonderful [Dwarf emulator for the Xerox 6085](https://github.com/devhawala/dwarf) by [@devhawala](https://github.com/devhawala) along with some disk images and a launch script. It's actually a packaging of my [fork](https://github.com/jpasqua/dwarf) of dwarf which has some changes in the way fullscreen operation is handled and a few other tweaks. For much more detailed information on the emulator, please refer to the original [repo](https://github.com/devhawala/dwarf) and my [fork](https://github.com/jpasqua/dwarf).
 
 Though the name *FauxStar* puts a lot of emphasis on the [Star](https://en.wikipedia.org/wiki/Xerox_Star) part of this, there is actually no Star image included! ViewPoint, the next version of Star is the earliest version of the image to run here. In this context I'm using "Star" as a shorthand for a [Xerox "D" machine](https://en.wikipedia.org/wiki/Xerox_Star#Hardware) capable of running the Star software and the [Xerox Development Environment](https://web.archive.org/web/20041204132344/http://www.apearson.f2s.com/xde.html) (XDE)
 
@@ -86,11 +86,13 @@ You may also add parameters after the first two that will be passed along to the
 
 ### Fullscreen Notes
 
-Fullscreen mode is available when using *draco* or *duchess* but they have an important difference. In *duchess* the emulator will see the actual available size of the full screen and use all of it. In *draco* the emulator's notion of the screen size is fixed. It doesn't change based on the size of the physical display you are looking at. This means that in all likelihood you will have large empty areas since your display is likely to be much larger than an original 6085 display. Alternatively, if you run on a small physical display (say 1024x768). Some of the emulated screen will be clipped away.
+Fullscreen mode is available when using *draco* or *duchess* but they have an important difference. In *duchess* the emulator will make the size of the emulated display the same as the physical display (see caveat below). In *draco* the emulator's notion of the screen size is fixed. It doesn't change based on the size of the physical display you are looking at. This means that in all likelihood you will have large empty areas since your display is likely to be much larger than an original 6085 display. Alternatively, if you run on a small physical display (say 1024x768), some of the emulated screen will be clipped away.
 
 When using fullscreen mode the emulator will take over the entire display and will not show the toolbar or status line as usual. This provides a more immersive experience of the emulation. Of course at times you may wish to see status or need to use the toolbar. You can toggle the visibility of these emulator controls by pressing `F12`. Unlike windowed mode, when using fullscreen mode both the toolbar and the status line will appear at the top of the display. Some of the bottom of the emulated screen may be clipped away.
 
 When starting in fullscreen mode you'll see a brief flash on the screen as if a window opens and immediately closes. That is exactly what is happening. This is a "probe" to determine the actual usable screen size.
+
+*Caveat on duchess in fullscreen mode*: If you launch a monochrome world (xde or gv_2.1_mono) in duchess, the width of the screen must be a multiple of 64 pixels. I'm not sure exactly why yet - this was determined experimentally. There is a reason for it to be limited to a mutiple of 16 pixels wide, but in practice it appears to be 64. The screen width will automatically be narrowed if necessary leaving a small border on the left and right of the display.
 
 ### Shutting down the system
 
@@ -98,8 +100,8 @@ Unfortunately, shutting down the various worlds is a little inconsistent. You'll
 
 * **Draco**
 	* **XDE**:
-		* xde5.0: using any of the XDE menus for shutting down the system will produce an unusable disk A system running this disk must be shut down with "Stop"-button Use the `Stop` button in the emulator controls.
-		* xde-1024, xde5.0_2xTajo+hacks: Use the "Boot button" in the "Boot from:" menu in the Herald.
+		* **xde5.0**: using any of the XDE menus for shutting down the system will produce an unusable disk A system running this disk must be shut down with "Stop"-button Use the `Stop` button in the emulator controls.
+		* **xde-1024**, **xde5.0_2xTajo+hacks**: Use the "Boot button" in the "Boot from:" menu in the Herald.
 	* **ViewPoint**: Log out, wait until the screen turns black with the bouncing keyboard and then use the `Stop` button.
 * **Duchess**
 	* **XDE**: Use the "Boot button" in the ["Boot from:"](images/XDEBootMenu.png) menu. This is accessed using the middle button over the Herald window. The cursor icon will change to a small three-button mouse with the left button highlighted. Press the left button to confirm the shutdown. If you are running in windowed mode you will get a message on the status line telling you when it is safe to close the window. If you are running fullscreen, the display will close automatically.
