@@ -21,13 +21,14 @@ Though the name *FauxStar* puts a lot of emphasis on the [Star](https://en.wikip
 Download the repo from GitHub using any means you like. It can go into any directory. For example:
 
 ```
-# wget https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip -O fauxstar.zip
-curl -L -o FauxStar-main.zip https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip
+wget https://github.com/jpasqua/FauxStar/archive/refs/heads/master.zip -O FauxStar-main.zip
 unzip FauxStar-main.zip
 rm FauxStar-main.zip
 mv FauxStar-main/dwarf/ .
 rm -rf FauxStar-main/
 cd dwarf
+# Get the dwarf emulator from the jpasqua fork of dwarf
+wget https://raw.githubusercontent.com/jpasqua/dwarf/master/dwarf.jar
 ```
 
 Now popuate the worlds by decompressing the disk images and copying them into the appropriate locations. The zip files can be deleted after this is done. You can delete any worlds that you don't plan to use if you want to save a little space.
