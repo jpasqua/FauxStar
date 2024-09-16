@@ -173,4 +173,6 @@ Ctrl!VK_H : Help
 Ctrl!VK_U : Undo
 Ctrl!VK_A : Again
 Ctrl!VK_N : Next
+Ctrl!VK_D : Delete
+
 
