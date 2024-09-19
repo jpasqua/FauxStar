@@ -46,7 +46,6 @@ if [ $# -eq 0 ]; then
             exit 1
         fi
         if [ -n "$opt" ]; then
-            echo "opt = " $opt
             selected_emulator=$opt
             break
         else
