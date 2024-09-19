@@ -112,7 +112,7 @@ Unfortunately, shutting down the various worlds is a little inconsistent. You'll
 The folder structure for dwarf is relevant if you want to add your own "worlds". You can see the structure below. Note that there may be new worlds or the names may change. The figure is meant to illustrate the overall structure. See the annotations in the figure below to understand the layout.
 
 ```
-dwarf
+mesa
 ├── dwarf.jar				# The actual emulator code
 ├── mesa.sh				# The launcher script
 ├── keyboard-maps		# Keyboard maps for various keyboards
