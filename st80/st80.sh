@@ -95,7 +95,7 @@ choose_world() {
 	    more_params="$more_params --timeadjust:$offset_difference"
 	fi
 
-	if [ "$EMULATOR_TYPE" == "v6" ] || [[ "$more_params" != *"--tz"* ]]; then
+	if [ "$EMULATOR_TYPE" == "v6" ] && [[ "$more_params" != *"--tz"* ]]; then
 	    more_params="$more_params --tz:$system_offset_minutes"
 	fi
 
