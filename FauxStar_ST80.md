@@ -10,10 +10,9 @@ For many more details on the operation of the emulator, refer to the original, a
 
 | Term          | Meaning        |
 |:------------- |:---------------|
-| To Be Added   | To Be Added    |
-| To Be Added   | To Be Added    |
-| To Be Added   | To Be Added    |
-| To Be Added   | To Be Added    |
+| ST80   | The name of the emulator itself, not a command for running it.    |
+| Version: *v2*, *v6*   | The version of Smalltalk-80 that will be emulated.    |
+| World   | A world corresponds to an environment to run. A world is specific to an emulator version (*v2* or *v6*) and contains all the components necessary for the emulation.    |
 
 ## Installation
 
@@ -29,6 +28,8 @@ unzip vanilla.zip
 rm analyst.zip vanilla.zip
 cd ../../..
 ```
+
+When you execute these commands, you'll be left back in the `fauxstar` directory and ready to run the emulator.
 
 ## Usage
 
