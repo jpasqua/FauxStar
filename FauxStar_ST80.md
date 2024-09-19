@@ -31,6 +31,7 @@ cd ../../..
 
 When you execute these commands, you'll be left back in the `fauxstar` directory and ready to run the emulator.
 
+<a id=”Usage”></a>
 ## Usage
 
 To run the emulator use the `st80.sh` script in the `st-80` directory. If you run the script with no parameters you will be guided through the choice of available worlds and options. Alternatively you can specify the emulator and world explicitly.
@@ -135,6 +136,6 @@ The worlds are stored in compressed form on git. When they are to be updated, re
 * Let's say you've made changes to the files in `worlds/v2/alto` and you want to regenerate `alto.zip`. 
 
   ```
-  cd worlds/v2/alto
+  cd worlds/v2/
   zip -r alto.zip alto -x "*/\.*" -x "__MACOSX"
   ```
