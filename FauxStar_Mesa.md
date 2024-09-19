@@ -20,6 +20,7 @@ Though the name *FauxStar* puts a lot of emphasis on the [Star](https://en.wikip
 You should have already followed the instructions to download the emulator software. During that process you will have created a directory named `fauxstar`. Navigate (`cd`) to fauxstar, then issue the following commands:
 
 ```
+cd mesa
 unzip disks-6085.zip
 rm -rf disks-6085.zip
 cp disks-6085/vp2.0.5.zdisk worlds/draco/vp2.0.5
