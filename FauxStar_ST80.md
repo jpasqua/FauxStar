@@ -17,28 +17,30 @@ For many more details on the operation of the emulator, refer to the original, a
 
 ## Installation
 
-If it doesn't already exist, create a directory named `fauxstar` any where you'd like including your home directory. Change directory (`cd`) to the `fauxstar` directory and execute the commands below. They will download and organize the necessary files leaving you with a new subdirectory named `smalltalk-80 `. 
+You should have already  followed the instructions to download the emulator software. During that process you will have created a directory named `fauxstar`. Navigate (`cd`) to fauxstar, then issue the following commands:
 
 ```
-curl -L -o ST80-master.zip https://github.com/jpasqua/ST80/archive/refs/heads/master.zip
-unzip ST80-master.zip
-rm ST80-master.zip
-unzip ST80-master/sample-env.zip -d .
-mv sample-env smalltalk-80
-rm -rf ST80-master
+cd st80/worlds/v2
+unzip alto.zip
+rm alto.zip
+cd ../v6
+unzip analyst.zip
+unzip vanilla.zip 
+rm analyst.zip vanilla.zip
+cd ../../..
 ```
 
 ## Usage
 
-To run the emulator use the `st80.sh` script in the `smalltalk-80` directory. If you run the script with no parameters you will be guided through the choice of available worlds and options. Alternatively you can specify the emulator and world explicitly.
+To run the emulator use the `st80.sh` script in the `st-80` directory. If you run the script with no parameters you will be guided through the choice of available worlds and options. Alternatively you can specify the emulator and world explicitly.
 
 ```
-Usage: smalltalk-80/st80.sh [-?]|[<v2|v6> <world_name>] [emulator_parameters...]
+Usage: st-80/st80.sh [-?]|[<v2|v6> <world_name>] [emulator_parameters...]
 Example:
-  smalltalk-80/st80.sh v6 analyst -fullscreen
+  st-80/st80.sh v6 analyst -fullscreen
 
 For a guided process, provide no parameters
-  smalltalk-80/st80.sh
+  st-80/st80.sh
 ```
 
 When you're using the guided experience you'll be presented with a list of available worlds. If you add your own world (see below) it will appear in this list. After selecting a world from the list, you'll be asked if you wish to run in full screen mode and whether you'd like to supply any additional parameters. Once you've answered all the questions, the emulator will be launched. The command used to launch it will be displayed in the terminal so if you'd like to run this world again, you can just copy and paste the command rather than going through the menus.
@@ -48,13 +50,10 @@ When you're not using the menu, there are two required positional parameters:
 1. Smalltalk-80 Version: v2 or v6.
 2. World: The name of a world in the `worlds` subdirectory. The worlds are organized around which version of Smalltalk-80:
 	* *v2*: 
-		* ...
-		* ...
-		* ...
+		* alto
 	* *v6*
-		* ...
-		* ...
-		* ...
+		* analyst
+		* vanilla
 
 You may also add parameters after the first two that will be passed along to the emulator. A full list can be found at the [repo](https://github.com/devhawala/ST80#invoking-st80). Of interest here is the `--fullscreen` parameter which is described below.
 
@@ -86,41 +85,55 @@ Shutting down a running emulation can be done in a couple of ways:
 
 ## Adding your own worlds
 
-The folder structure for smalltalk-80 is relevant if you want to add your own "worlds". You can see the structure below. Note that there may be new worlds or the names may change. The figure is meant to illustrate the overall structure. See the annotations in the figure below to understand the layout.
+The folder structure for st-80 is relevant if you want to add your own "worlds". You can see the structure below. Note that there may be new worlds or the names may change. The figure is meant to illustrate the overall structure. For a detailed description of what all these files are and how they are used, refer to [@devhawala's](https://github.com/devhawala) [readme file](https://github.com/jpasqua/ST80/blob/master/readme.md).
+
+You'll notice that each world contains a file named `image_name.txt`. This is used by the launch script to indicate the path to the image to be used. If you add a world, be sure to add this file.
 
 ```
-smalltalk-80
-├── st80vm.jar			# The actual emulator code
-├── st80.sh				# The launcher script
+st80
+├── st80vm.jar	# The emulator code
+├── st80.sh		# The script used to launch the emulator
 └── worlds
     ├── v2
-    │   ├── vanilla
-    │   │   ├── blah
-    │   │   ├── blah
-    │   │   └── blah
-    │   ├── ...
-    │   └── analyst
+    │   └── alto
+    │       ├── image_name.txt
+    │       ├── altodisk-files
+    │       │   ├── Biplane.form
+    │       │   └── ...
+    │       └── snapshot.im
     └── v6
-        ├── vanilla
-        │   ├── blah
-        │   ├── blah
-        │   └── blah
-        ├── vanilla-1024
-        ├── ...
-        └── analyst
-            ├── ...
-            └── blah
+        ├── analyst
+        │   ├── image_name.txt
+        │   ├── ;searchpath.txt
+        │   ├── data
+        │   │   ├── 1100.image
+        │   │   └── ...
+        │   └── system
+        │       ├── Analyst-DV6.initialChanges
+        │       ├── ...
+        │       └── ST80-DV6.sources
+        └── vanilla
+        │   ├── image_name.txt
+            ├── ;searchpath.txt
+            └── Smalltalk
+                ├── Goodies
+                │   ├── Animation-DV6.st
+                │   └── ...
+                ├── ...
+                └── snapshot.im
 ```
 
-## License: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
+## Internal Notes
 
-The license for Dwarf can be found at the [Dwarf repo](https://github.com/devhawala/dwarf).
+The worlds are stored in compressed form on git. When they are to be updated, remember to exclude any OS specific files that might get included. When changing or adding to the worlds, follow this process to update the associated zip file:
 
-This work is licensed under a
-[Creative Commons Attribution-NonCommercial 4.0 International License][cc-by-nc].
+* Decompress the file of interest, for example, `worlds/v2/alto.zip`
+* Add or change files in the folder that resulted from unzipping
+* If the change merits update to the documentation (e.g. a new world), then do so.
+* Recompress the containing folder and delete the folder afterward. On macOS be sure to get rid of Mac-specific hidden files.
+* Let's say you've made changes to the files in `worlds/v2/alto` and you want to regenerate `alto.zip`. 
 
-[![CC BY-NC 4.0][cc-by-nc-image]][cc-by-nc]
-
-[cc-by-nc]: https://creativecommons.org/licenses/by-nc/4.0/
-[cc-by-nc-image]: https://licensebuttons.net/l/by-nc/4.0/88x31.png
-[cc-by-nc-shield]: https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg
+  ```
+  cd worlds/v2/alto
+  zip -r alto.zip alto -x "*/\.*" -x "__MACOSX"
+  ```
