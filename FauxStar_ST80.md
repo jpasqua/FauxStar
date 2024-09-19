@@ -20,12 +20,11 @@ You should have already  followed the instructions to download the emulator soft
 
 ```
 cd st80/worlds/v2
-unzip alto.zip
-rm alto.zip
+unzip *.zip
+rm *.zip
 cd ../v6
-unzip analyst.zip
-unzip vanilla.zip 
-rm analyst.zip vanilla.zip
+unzip *.zip
+rm *.zip
 cd ../../..
 ```
 
