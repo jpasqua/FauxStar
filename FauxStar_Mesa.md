@@ -38,6 +38,7 @@ cp disks-guam/GVWIN.GRM worlds/duchess/gv_2.1_mono
 cp disks-guam/Dawn.dsk worlds/duchess/xde
 cp disks-guam/Dawn.germ worlds/duchess/xde
 rm -rf disks-guam
+cd ..
 ```
 
 ## Usage
