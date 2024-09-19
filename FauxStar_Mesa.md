@@ -17,21 +17,7 @@ Though the name *FauxStar* puts a lot of emphasis on the [Star](https://en.wikip
 
 ## Installation
 
-If it doesn't already exist, create a directory named `fauxstar` any where you'd like including your home directory. Change directory (`cd`) to the `fauxstar` directory and execute the commands below. They will download and organize the necessary files leaving you with a new subdirectory named `mesa`. 
-
-```
-curl -L -o FauxStar-main.zip https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip
-unzip FauxStar-main.zip
-rm FauxStar-main.zip
-mv FauxStar-main/dwarf/ .
-rm -rf FauxStar-main/
-mv dwarf mesa
-cd mesa
-# Get the dwarf emulator from the jpasqua fork of dwarf
-curl -L -o dwarf.jar https://raw.githubusercontent.com/jpasqua/dwarf/master/dwarf.jar
-```
-
-The commands below will popuate the various Mesa worlds by decompressing the disk images and copying them into the appropriate locations. The zip files are deleted after this is done. You can manually delete any worlds that you don't plan to use if you want to save a little space.
+You should have already followed the instructions to download the emulator software. During that process you will have created a directory named `fauxstar`. Navigate (`cd`) to fauxstar, then issue the following commands:
 
 ```
 unzip disks-6085.zip
