@@ -69,6 +69,8 @@ choose_world() {
             echo "Invalid option. Please try again."
         fi
     done
+echo $EMULATOR_TYPE
+echo $WORLD
 
     # Ask the user a yes/no question about fullscreen mode
     read -p "Fullscreen mode? ([y]/n): " fullscreen_choice
@@ -85,11 +87,13 @@ choose_world() {
         if [[ "$more_params" == "?" ]]; then
             echo "  --statusline:    Display a status line if not in fullscreen mode"
             echo "  --stats:         Display some stats when the emulator exits"
-            echo "  --timeadjust:nn: Add nn minutes to GMT to correct time in Smalltalk (positive values for east)."
-            echo "                   Only relevant for v2"
+            echo "  --timeadjust:nn: Add nn minutes to GMT to correct time in Smalltalk"
+            echo "                   (positive for east). Only relevant for v2"
             echo "  --tz:offsetMinutes[:dstFirstDay:dstLastDay]"
             echo "                   Set the timezone and daylight saving parameters"
             echo "                   Only relevant for v6"
+            echo "Note: If --timeadjust (for v2) or --tz (for v6) are not given"
+            echo "      computed values will be applied automatically."
         else
             break
         fi

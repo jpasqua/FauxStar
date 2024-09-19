@@ -39,6 +39,7 @@ cd mesa
 curl -L -o dwarf.jar https://raw.githubusercontent.com/jpasqua/dwarf/master/dwarf.jar
 cd ../st80
 curl -L -o st80vm.jar https://raw.githubusercontent.com/jpasqua/ST80/master/st80vm.jar
+cd ..
 ```
 
 Once you've executed these commands you are ready to prepare the [Mesa](FauxStar_Mesa.md) and [Smalltalk](FauxStar_ST80.md) worlds.
@@ -46,6 +47,7 @@ Once you've executed these commands you are ready to prepare the [Mesa](FauxStar
 ## License: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
 The license for Dwarf can be found at the [Dwarf repo](https://github.com/devhawala/dwarf).
+The license for ST80 can be found at the [ST80 repo](https://github.com/devhawala/ST80).
 
 This work is licensed under a
 [Creative Commons Attribution-NonCommercial 4.0 International License][cc-by-nc].
