@@ -27,10 +27,12 @@ Follow the steps below to get your RPi configured and the emulators downloaded. 
 
 ```
 mkdir fauxstar
+cd fauxstar
 curl -L -o FauxStar-main.zip https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip
 unzip FauxStar-main.zip
 rm FauxStar-main.zip
-mv FauxStar-main/dwarf/ .
+mv FauxStar-main/mesa/ .
+mv FauxStar-main/st80/ .
 rm -rf FauxStar-main/
 cd mesa
 # Get the dwarf emulator from the jpasqua fork of dwarf
