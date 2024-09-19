@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Get the directory where the script is located
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Change to that directory
-cd "$script_dir" || exit 1
-
 ADDITIONAL_PARAMS=""
 
 # Get the current system's timezone offset in minutes from UTC
@@ -69,8 +63,6 @@ choose_world() {
             echo "Invalid option. Please try again."
         fi
     done
-echo $EMULATOR_TYPE
-echo $WORLD
 
     # Ask the user a yes/no question about fullscreen mode
     read -p "Fullscreen mode? ([y]/n): " fullscreen_choice
@@ -110,7 +102,9 @@ echo $WORLD
     # Append any additional parameters
     ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS $more_params"
 
+    echo "NOTE: The direct command to launch with these options:"
     echo "$0 $EMULATOR_TYPE $WORLD $ADDITIONAL_PARAMS"
+    echo
 }
 
 # Set BASE_DIR to the full path of the directory containing the script
@@ -141,4 +135,4 @@ fi
 
 IMAGE_NAME=$(cat worlds/$EMULATOR_TYPE/$WORLD/image_name.txt)
 
-java -jar $BASE_DIR/st80vm.jar $WORLD_HOME/$IMAGE_NAME "$@" $ADDITIONAL_PARAMS
+java -jar $BASE_DIR/st80vm.jar "$@" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME
