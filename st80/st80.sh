@@ -9,21 +9,13 @@ cd "$script_dir" || exit 1
 ADDITIONAL_PARAMS=""
 
 # Get the current system's timezone offset in minutes from UTC
-system_offset=$(date +%z)
-system_offset_minutes=$((10#${system_offset:0:3} * 60 + 10#${system_offset:3:2}))
+system_offset_minutes=$(date +%z | awk '{print ($1 / 100) * 60 + ($1 % 100)}')
 
 # Get the current timezone offset in minutes from UTC for Palo Alto, CA (America/Los_Angeles)
-palo_alto_offset=$(TZ="America/Los_Angeles" date +%z)
-palo_alto_offset_minutes=$((10#${palo_alto_offset:0:3} * 60 + 10#${palo_alto_offset:3:2}))
+palo_alto_offset_minutes=$(TZ="America/Los_Angeles" date +%z | awk '{print ($1 / 100) * 60 + ($1 % 100)}')
 
 # Calculate the difference between the two offsets
 offset_difference=$((system_offset_minutes - palo_alto_offset_minutes))
-
-# Output the timezone results
-echo "System timezone offset from UTC (in minutes): $system_offset_minutes"
-echo "Palo Alto, CA timezone offset from UTC (in minutes): $palo_alto_offset_minutes"
-echo "Difference between system timezone and Palo Alto timezone (in minutes): $offset_difference"
-
 
 usage() {
     echo "Usage: $0 [-?]|[<v2|v6> <world_name>] [emulator_parameters...]"
@@ -43,7 +35,7 @@ choose_world() {
     for world in worlds/*; do
         if [ -d "$world" ]; then
             world_name=$(basename "$world")
-            
+
             # Loop through each subfolder within the world folder
             for subfolder in "$world"/*; do
                 if [ -d "$subfolder" ]; then
