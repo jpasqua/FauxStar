@@ -32,7 +32,6 @@ unzip FauxStar-main.zip
 rm FauxStar-main.zip
 mv FauxStar-main/dwarf/ .
 rm -rf FauxStar-main/
-mv dwarf mesa
 cd mesa
 # Get the dwarf emulator from the jpasqua fork of dwarf
 curl -L -o dwarf.jar https://raw.githubusercontent.com/jpasqua/dwarf/master/dwarf.jar
