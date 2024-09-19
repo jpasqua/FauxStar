@@ -20,10 +20,10 @@ You should have already  followed the instructions to download the emulator soft
 
 ```
 cd st80/worlds/v2
-unzip *.zip
+unzip '*.zip'
 rm *.zip
 cd ../v6
-unzip *.zip
+unzip '*.zip'
 rm *.zip
 cd ../../..
 ```
