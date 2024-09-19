@@ -33,6 +33,7 @@ unzip FauxStar-main.zip
 rm FauxStar-main.zip
 mv FauxStar-main/mesa/ .
 mv FauxStar-main/st80/ .
+mv FauxStar-main/fauxstar.sh .
 rm -rf FauxStar-main/
 cd mesa
 # Get the dwarf emulator from the jpasqua fork of dwarf
