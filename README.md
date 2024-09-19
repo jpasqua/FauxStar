@@ -44,6 +44,31 @@ cd ..
 
 Once you've executed these commands you are ready to prepare the [Mesa](FauxStar_Mesa.md) and [Smalltalk](FauxStar_ST80.md) worlds. If you run the commands above, they will leave you back in the `fauxstar` directory, ready to set up the Mesa or ST80 world.
 
+## Running the Emulator(s)
+
+To run any of the available emulators invoke the `fauxstar.sh` script. For example, if you are already in the `fauxstar` directory, type:
+
+```
+./fauxstar.sh
+```
+
+Doing so will provide a list of available emulators. You'll be asked to choose one and then you will be given a menu of options that are specific to that emulator. If you use the `-h` option you'll be given a usage message:
+
+```
+Usage: ./fauxstar.sh [mesa|st80] [additional parameters]
+  * If you provide no arguments you will be asked to choose an emulation
+    type and then be given a menu of options specific to that emulator.
+  * If you provide only the emulation type, you will be presented with
+    a menu of options specific to that emulation
+  * If you provide an emulation type and additional parameters, the
+    chosen emulator will be run with those options and no additional
+    input is requested
+
+```
+
+For more detailed information about how to run the emulators, see the documentation for [Mesa](FauxStar_Mesa.md#usage) and [Smalltalk-80](FauxStar_Mesa.md#usage).
+
+
 ## License: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
 The license for Dwarf can be found at the [Dwarf repo](https://github.com/devhawala/dwarf).
