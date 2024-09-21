@@ -15,6 +15,7 @@ Though the name *FauxStar* puts a lot of emphasis on the [Star](https://en.wikip
 | duchess       | A recreation of the [GlobalView](https://en.wikipedia.org/wiki/GlobalView) engine which was an emulator running under Windows. |
 | World         | A world corresponds to an environment to run. A world is specific to an emulator type (*draco* or *duchess*) and contains a disk image and a config file with parameters.  |
 
+<a id=”Installation”></a>
 ## Installation
 
 You should have already followed the instructions to download the emulator software. During that process you will have created a directory named `fauxstar`. Navigate (`cd`) to fauxstar, then issue the following commands:

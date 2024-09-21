@@ -43,7 +43,7 @@ curl -L -o st80vm.jar https://raw.githubusercontent.com/jpasqua/ST80/master/st80
 cd ..
 ```
 
-Once you've executed these commands you are ready to prepare the [Mesa](FauxStar_Mesa.md) and [Smalltalk](FauxStar_ST80.md) worlds. If you run the commands above, they will leave you back in the `fauxstar` directory, ready to set up the Mesa or ST80 world.
+Once you've executed these commands you are ready to prepare the [Mesa](FauxStar_Mesa.md#Installation) and [Smalltalk](FauxStar_ST80.md#Installation) worlds. If you run the commands above, they will leave you back in the `fauxstar` directory, ready to set up the Mesa or ST80 world.
 
 ## Running the Emulator(s)
 
