@@ -2,6 +2,8 @@
 
 Using the instructions below you can add Lisp capabilities to *FauxStar* based on the very impressive [Medley Interlisp Project](https://interlisp.org) which can be found in this [GitHub repo](https://github.com/Interlisp/medley).
 
+Special thanks to [Paola Amoroso](https://github.com/pamoroso) for answering all my questions about getting Medley up and running.
+
 I don't know my way around the Lisp world, so this is a bare-bones installation of Medley. For many more details on the operation of the emulator, please refer to extensive documentation provided by the [Medley Interlisp Project](https://interlisp.org). In particular take a look at [Using Medley InterLisp](https://interlisp.org/doc/info/Using.html).
 
 ***Limitations***: At the moment the Lisp installation only runs on Raspberry Pi. Medley works great on Windows and Mac, but I don't handle those environments in the install yet since I am focused on RPi for the FauxStar replica.
