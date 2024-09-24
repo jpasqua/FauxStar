@@ -15,6 +15,9 @@ curl -L -o medley.deb https://github.com/Interlisp/medley/releases/download/medl
 echo "Installing Medeley"
 sudo dpkg -i medley.deb
 
+# Update medley to support the VNC -FullScreen option
+sudo sed -i '/"${vncviewer}" -geometry "+${vncv_loc}+${vncv_loc}"/a \ \ \ \ $VNCVIEWER_FULLSCREEN \\' `which medley`
+
 echo "== END: Lisp Emulator Installation"
 
 # medley -n -s 1024x728 -v +
