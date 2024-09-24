@@ -47,14 +47,10 @@ if ! which medley > /dev/null 2>&1; then
 fi
 
 new_args=()  # Array to store arguments that aren't -fullscreen or -?
-
-
-# Now you can use the new_args array which contains all the remaining arguments
-echo "Remaining arguments: ${new_args[@]}"
-# Check the number of arguments
 if [ $# -eq 0 ]; then
     choose_options
 else
+    # Filter the arguments
     for arg in "$@"; do
         case "$arg" in
             -fullscreen)
