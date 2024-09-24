@@ -14,23 +14,6 @@ For many more details on the operation of the emulator, refer to the original, a
 | Version: *v2*, *v6*   | The version of Smalltalk-80 that will be emulated.    |
 | World   | A world corresponds to an environment to run. A world is specific to an emulator version (*v2* or *v6*) and contains all the components necessary for the emulation.    |
 
-<a id=”Installation”></a>
-## Installation
-
-You should have already  followed the instructions to download the emulator software. During that process you will have created a directory named `fauxstar`. Navigate (`cd`) to fauxstar, then issue the following commands:
-
-```
-cd st80/worlds/v2
-unzip '*.zip'
-rm *.zip
-cd ../v6
-unzip '*.zip'
-rm *.zip
-cd ../../..
-```
-
-When you execute these commands, you'll be left back in the `fauxstar` directory and ready to run the emulator.
-
 <a id=”Usage”></a>
 ## Usage
 

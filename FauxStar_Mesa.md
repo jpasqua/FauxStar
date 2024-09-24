@@ -15,35 +15,6 @@ Though the name *FauxStar* puts a lot of emphasis on the [Star](https://en.wikip
 | duchess       | A recreation of the [GlobalView](https://en.wikipedia.org/wiki/GlobalView) engine which was an emulator running under Windows. |
 | World         | A world corresponds to an environment to run. A world is specific to an emulator type (*draco* or *duchess*) and contains a disk image and a config file with parameters.  |
 
-<a id=”Installation”></a>
-## Installation
-
-You should have already followed the instructions to download the emulator software. During that process you will have created a directory named `fauxstar`. Navigate (`cd`) to fauxstar, then issue the following commands:
-
-```
-cd mesa
-unzip disks-6085.zip
-rm -rf disks-6085.zip
-cp disks-6085/vp2.0.5.zdisk worlds/draco/vp2.0.5
-cp disks-6085/xde5.0_2xTajo+hacks.zdisk worlds/draco/xde5.0_2xTajo+hacks
-cp disks-6085/xde5.0.zdisk worlds/draco/xde5.0
-cp disks-6085/xde5.0-1024.zdisk worlds/draco/xde5.0-1024
-rm -rf disks-6085
-
-unzip disks-guam.zip
-rm -rf disks-guam.zip
-cp disks-guam/GVWIN001.DSK worlds/duchess/gv_2.1_color
-cp disks-guam/GVWIN.GRM worlds/duchess/gv_2.1_color
-cp disks-guam/GVWIN001.DSK worlds/duchess/gv_2.1_mono
-cp disks-guam/GVWIN.GRM worlds/duchess/gv_2.1_mono
-cp disks-guam/Dawn.dsk worlds/duchess/xde
-cp disks-guam/Dawn.germ worlds/duchess/xde
-rm -rf disks-guam
-cd ..
-```
-
-When you execute these commands, you'll be left back in the `fauxstar` directory and ready to install the ST80 world.
-
 <a id=”Usage”></a>
 ## Usage
 

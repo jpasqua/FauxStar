@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ADDITIONAL_PARAMS=""
 
@@ -69,7 +69,7 @@ choose_world() {
     fullscreen_choice="${fullscreen_choice:-"y"}"
 
     # Append "--fullscreen" if the user answers 'y' or 'Y'
-    if [[ "$fullscreen_choice" == "y" || "$fullscreen_choice" == "Y" ]]; then
+    if [[ "$fullscreen_choice" == "y" || "$fullscreen_choice" == "Y"  || "$fullscreen_choice" == "" ]]; then
         ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS --fullscreen"
     fi
 

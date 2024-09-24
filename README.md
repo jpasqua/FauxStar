@@ -23,27 +23,14 @@ The rest of the documentation is split into the following parts in the order you
 Follow the steps below to get your RPi configured and the emulators downloaded. There are futher steps you'll need to follow that are specific to the Mesa and Smalltalk emulators respectively.
 
 * **Prepare Raspberry Pi OS**. Create an image of the Raspberry Pi OS that is appropriate for your Pi. Don't use the Lite version - you'll need the window system installed. I used the latest OS release as of September 2024, Bookworm. Boot the OS and customize as you like.
-* **Install the emulators**: Use the commands below to download and install the Mesa and Smalltalk emulators. They can be installed into any directory you like. In the commands below, it is assumed that you have navigated (`cd`) to that directory.
+* **Install the emulators**: Use the commands below to download core files and launch the *FauxStar* installation process. *FauxStar* can be installed into any directory you like. Navigate (`cd`) to that directory before executing the following commands. You will be asked which of the available emulators you want to install (mesa, smalltalk-80, lisp). Choose at least one.
 
 ```
-mkdir fauxstar
-cd fauxstar
+mkdir fauxstar ; cd fauxstar
 curl -L -o FauxStar-main.zip https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip
-unzip FauxStar-main.zip
-rm FauxStar-main.zip
-mv FauxStar-main/mesa/ .
-mv FauxStar-main/st80/ .
-mv FauxStar-main/fauxstar.sh .
-rm -rf FauxStar-main/
-cd mesa
-# Get the dwarf emulator from the jpasqua fork of dwarf
-curl -L -o dwarf.jar https://raw.githubusercontent.com/jpasqua/dwarf/master/dwarf.jar
-cd ../st80
-curl -L -o st80vm.jar https://raw.githubusercontent.com/jpasqua/ST80/master/st80vm.jar
-cd ..
+unzip FauxStar-main.zip ; rm FauxStar-main.zip
+FauxStar-main/install.sh
 ```
-
-Once you've executed these commands you are ready to prepare the [Mesa](FauxStar_Mesa.md#Installation) and [Smalltalk](FauxStar_ST80.md#Installation) worlds. If you run the commands above, they will leave you back in the `fauxstar` directory, ready to set up the Mesa or ST80 world.
 
 ## Running the Emulator(s)
 
