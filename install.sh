@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
 echo "Installing FauxStar into $(pwd)"
-mv FauxStar-main/fauxstar.sh .
-mv FauxStar-main/mesa/ .
-mv FauxStar-main/st80/ .
-mv FauxStar-main/lisp/ .
-rm -rf FauxStar-main/
+if [ -d "FauxStar-main" ]; then
+    mv FauxStar-main/fauxstar.sh .
+    mv FauxStar-main/mesa/ .
+    mv FauxStar-main/st80/ .
+    mv FauxStar-main/lisp/ .
+    rm -rf FauxStar-main/
+fi
 
 # Array of installation options
 install_options=("mesa" "st80" "lisp")
@@ -50,6 +52,16 @@ export FAUXSTAR_INSTALL_DIR=`pwd`
 # Process the user's selections
 for choice in "${selected_options[@]}"; do
     echo "===== Installing ${choice}"
+    if [ "$shoice" == "lisp" ]; then
+        echo "NOTE: To enable full screen operation of Medley Interlisp, tigervnc"
+        echo "server and viewer will be installed automatically. tigervnc server"
+        echo "will become the default Xvnc server."
+        read -p ">> Is this ok? [y/n]: " -r lisp_install_ok
+        if ["$shoice" != "y" ]; then
+            echo "lisp will not be installed."
+            continue
+        fi
+    fi
     "$choice/${choice}_install.sh"
 done
 
