@@ -15,10 +15,11 @@ usage() {
 }
 
 choose_options() {
-    # Append "--fullscreen" if the user answers 'y' or 'Y'
+	# VNCVIEWER_FULLSCREEN is used by our custom medley_vnc.sh script
+	export VNCVIEWER_FULLSCREEN=""
     read -p "Fullscreen mode? ([y]/n): " fullscreen_choice
     if [[ "$fullscreen_choice" == "y" || "$fullscreen_choice" == "Y" || "$fullscreen_choice" == "" ]]; then
-        export MEDLEY_DO_FULLSCREEN=true
+        export VNCVIEWER_FULLSCREEN="-FullScreen"
         dims=$(xrandr 2>/dev/null | grep '*' | awk '{print $1}')
         ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS -n -s ${dims} -v +"
     fi
