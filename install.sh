@@ -50,7 +50,7 @@ if [ ${#selected_options[@]} -eq 0 ]; then
     exit 0
 fi
 
-rm -f fauxstar_install_notes.txt
+rm -f collected_install_notes.txt
 
 export FAUXSTAR_INSTALL_DIR=`pwd`
 # Process the user's selections
@@ -73,6 +73,6 @@ done
 cd $FAUXSTAR_INSTALL_DIR
 
 echo "Installation complete with the following notes:"
-cat fauxstar_install_notes.txt
+cat collected_install_notes.txt
 echo
 echo "Type ./fauxstar.sh to fire up an emalator"

@@ -13,7 +13,7 @@ cd ../v6
 unzip '*.zip'
 rm *.zip
 
-cat << EOF >> ../fauxstar_install_notes.txt
+cat << EOF >> $FAUXSTAR_INSTALL_DIR/collected_install_notes.txt
 * The ST80 Smalltalk emulator has been installed.
   It requires a Java installation. Please install Java version 22 or greater.
 EOF
