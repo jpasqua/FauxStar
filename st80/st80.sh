@@ -111,6 +111,11 @@ choose_world() {
 BASE_DIR=$(realpath "$(dirname "$0")")
 cd $BASE_DIR
 
+if [ ! -f $BASE_DIR/st80vm.jar ]; then
+    echo "There is not a valid Smalltalk-80 (st80) installation."
+    exit 1
+fi
+
 # Check the number of arguments
 if [ $# -eq 0 ]; then
     choose_world

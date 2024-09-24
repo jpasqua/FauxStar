@@ -90,6 +90,11 @@ choose_world() {
 BASE_DIR=$(realpath "$(dirname "$0")")
 cd $BASE_DIR
 
+if [ ! -f $BASE_DIR/dwarf.jar ]; then
+    echo "There is not a valid Mesa (dwarf) installation."
+    exit 1
+fi
+
 if [ "$#" -eq 0 ]; then
     # If we were given no arguments, provide a list of choices
     choose_world
@@ -117,4 +122,4 @@ fi
 # Change directory to the WORLD directory
 cd "$WORLD_HOME" || { echo "Error: Cannot change directory to $WORLD_HOME"; exit 1; }
 
-java -jar $BASE_DIR/dwarf.jar -"$EMULATOR_TYPE" "$WORLD" "$@" $ADDITIONAL_PARAMS
+java -jar $BASE_DIR/.jar -"$EMULATOR_TYPE" "$WORLD" "$@" $ADDITIONAL_PARAMS

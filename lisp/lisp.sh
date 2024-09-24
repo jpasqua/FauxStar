@@ -33,6 +33,11 @@ choose_options() {
 # Set BASE_DIR to the full path of the directory containing the script
 BASE_DIR=$(realpath "$(dirname "$0")")
 
+if ! which medley > /dev/null 2>&1; then
+    echo "There is not a valid Lisp (medley) installation."
+    exit 1
+fi
+
 # Check the number of arguments
 if [ $# -eq 0 ]; then
     choose_options
