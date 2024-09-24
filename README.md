@@ -10,13 +10,20 @@ In particular, I will be modeling the Xerox 8010 computer, otherwise known as th
 The rest of the documentation is split into the following parts in the order you'll want to go through them.
 
 * [The Model](FauxStar_model.md): Instructions on how to print and assemble the model and electronic components, including a Raspberry Pi.
-* [Basic Software Installation](): In this section, which is just a little further down in this file, you'll be given the steps to prepare your Raspberry Pi and download the emulators. There are more steps covered in the Mesa and Smalltalk sections. 
+* [Basic Software Installation](): In this section, which is just a little further down the page, you'll be given the steps to prepare your Raspberry Pi and install the emulators. 
 * [The Mesa World](FauxStar_Mesa.md):
-	* This sections discusses to install and use the Mesa emulator on *FauxStar*. Doing this provides access to the [Xerox Development Environment (XDE)](https://web.archive.org/web/20041204132344/http://www.apearson.f2s.com/xde.html), and [Star](https://en.wikipedia.org/wiki/Xerox_Star#User_interface)/[Viewpoint/GlobalView](https://en.wikipedia.org/wiki/GlobalView)
+	* This sections discusses how to use the Mesa emulator, which provides access to the [Xerox Development Environment (XDE)](https://web.archive.org/web/20041204132344/http://www.apearson.f2s.com/xde.html), and [Star](https://en.wikipedia.org/wiki/Xerox_Star#User_interface)/[Viewpoint/GlobalView](https://en.wikipedia.org/wiki/GlobalView)
+	* There are notes on how to run the emulator directly, but normally it can be invoked via the general `fauxstar.sh` script.
 	* The emulator I'm using is a fork of the wonderful [Dwarf emulator for the Xerox 6085](https://github.com/devhawala/dwarf) by [@devhawala](https://github.com/devhawala) 
 * [The Smalltalk-80 World](FauxStar_ST80.md):
-	* This section discusses how to install and use the Smalltalk-80 emulator on *FauxStar*
+	* This section discusses how to use the Smalltalk-80 emulator on *FauxStar*.
+	* There are notes on how to run the emulator directly, but normally it can be invoked via the general `fauxstar.sh` script.
 	* The emulator I'm using is also from [@devhawala](https://github.com/devhawala) and is named ST80. We will also be using a fork of this with minor changes. 
+* [The Lisp World](FauxStar_Lisp.md):
+	* This section discusses how to use the Medley Interlisp emulator on *FauxStar*.
+	* There are notes on how to run the emulator directly, but normally it can be invoked via the general `fauxstar.sh` script.
+	* The emulator I'm using is also from [The Medley Interlisp Project](https://interlisp.org). Here is the [GitHub repo](https://github.com/Interlisp/medley).
+	* At the moment the installation script only runs on the Raspberry Pi, though you can install Medley manually using instructions from their repo.
 
 ## Software Setup
 
@@ -43,7 +50,7 @@ To run any of the available emulators invoke the `fauxstar.sh` script. For examp
 Doing so will provide a list of available emulators. You'll be asked to choose one and then you will be given a menu of options that are specific to that emulator. If you use the `-h` option you'll be given a usage message:
 
 ```
-Usage: ./fauxstar.sh [mesa|st80] [additional parameters]
+Usage: ./fauxstar.sh [mesa|st80|lisp] [additional parameters]
   * If you provide no arguments you will be asked to choose an emulation
     type and then be given a menu of options specific to that emulator.
   * If you provide only the emulation type, you will be presented with
@@ -51,10 +58,9 @@ Usage: ./fauxstar.sh [mesa|st80] [additional parameters]
   * If you provide an emulation type and additional parameters, the
     chosen emulator will be run with those options and no additional
     input is requested
-
 ```
 
-For more detailed information about how to run the emulators, see the documentation for [Mesa](FauxStar_Mesa.md#usage) and [Smalltalk-80](FauxStar_Mesa.md#usage).
+For more detailed information about how to run the emulators, see the documentation for [Mesa](FauxStar_Mesa.md#usage), [Smalltalk-80](FauxStar_ST80.md#usage), and [Lisp](FauxStar_Lisp.md#usage)
 
 
 ## License: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
