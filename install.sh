@@ -72,6 +72,7 @@ done
 
 cd $FAUXSTAR_INSTALL_DIR
 
-echo "Installation complete with the following notes:
+echo "Installation complete with the following notes:"
 cat fauxstar_install_notes.txt
+echo
 echo "Type ./fauxstar.sh to fire up an emalator"
