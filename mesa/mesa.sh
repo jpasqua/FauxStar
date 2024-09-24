@@ -82,7 +82,9 @@ choose_world() {
     # Append any additional parameters
     ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS $more_params"
 
+    echo "NOTE: The direct command to launch with these options:"
     echo "$0 $EMULATOR_TYPE $WORLD $ADDITIONAL_PARAMS"
+    echo
 }
 
 
