@@ -24,4 +24,9 @@ cp disks-guam/Dawn.dsk worlds/duchess/xde
 cp disks-guam/Dawn.germ worlds/duchess/xde
 rm -rf disks-guam
 
+cat << EOF >> fauxstar_install_notes.txt
+* The Dwarf Mesa emulator has been installed.
+  It requires a Java installation. Please install Java version 22 or greater.
+EOF
+
 echo "== END: Mesa Emulator Installation"

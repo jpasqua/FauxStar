@@ -22,6 +22,13 @@ real_file=$(readlink -f `which medley`)
 # Apply sed to the real file
 sudo sed -i '/"${vncviewer}" -geometry "+${vncv_loc}+${vncv_loc}"/a \ \ \ \ $VNCVIEWER_FULLSCREEN \\' "$real_file"
 
+cat << EOF >> fauxstar_install_notes.txt
+* The Medley Interlisp system has been installed.
+  On a Raspberry Pi this results in the installation of tigervnc
+  as the main Xvnc alternative. The tigervnc viewer was also installed.
+  This is required for fullscreen operation.
+EOF
+
 echo "== END: Lisp Emulator Installation"
 
 # medley -n -s 1024x728 -v +
