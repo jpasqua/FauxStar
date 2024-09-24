@@ -27,6 +27,14 @@ choose_options() {
     if [[ "$fullscreen_choice" == "y" || "$fullscreen_choice" == "Y" || "$fullscreen_choice" == "" ]]; then
         do_fullscreen
     fi
+    read -p "Start with default apps? ([y]/n): " apps_choice
+    if [[ "$apps_choice" == "y" || "$apps_choice" == "Y" || "$apps_choice" == "" ]]; then
+        ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS -a -e"
+    fi
+
+    echo "NOTE: The direct command to launch with these options:"
+    echo "$0 ${VNCVIEWER_FULLSCREEN:+-fullscreen} $ADDITIONAL_PARAMS"
+    echo
 }
 
 
@@ -38,17 +46,28 @@ if ! which medley > /dev/null 2>&1; then
     exit 1
 fi
 
+new_args=()  # Array to store arguments that aren't -fullscreen or -?
+
+
+# Now you can use the new_args array which contains all the remaining arguments
+echo "Remaining arguments: ${new_args[@]}"
 # Check the number of arguments
 if [ $# -eq 0 ]; then
     choose_options
-elif [ $# -eq 1 ]; then
-    if [ $1 == "-?" ]; then
-    	usage
-    fi
-    if [[ "${1,,}" == "-fullscreen" ]]; then
-        shift
-        do_fullscreen
-    fi
+else
+    for arg in "$@"; do
+        case "$arg" in
+            -fullscreen)
+                do_fullscreen  # Call the fullscreen handler
+                ;;
+            -\?)
+                usage  # Call the usage function
+                ;;
+            *)
+                new_args+=("$arg")  # Keep other arguments
+                ;;
+        esac
+    done
 fi
 
-medley $ADDITIONAL_PARAMS $@
+medley $ADDITIONAL_PARAMS "${new_args[@]}"
