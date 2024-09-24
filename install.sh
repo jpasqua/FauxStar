@@ -3,6 +3,7 @@
 echo "Installing FauxStar into $(pwd)"
 if [ -d "FauxStar-main" ]; then
     mv FauxStar-main/fauxstar.sh .
+    mv FauxStar-main/install.sh .
     mv FauxStar-main/mesa/ .
     mv FauxStar-main/st80/ .
     mv FauxStar-main/lisp/ .
@@ -22,6 +23,7 @@ prompt_installation() {
             read -p "  $option? (Y/n): " -r response
             case "$response" in
                 [Nn]* )
+                    rm -f $option/.installed
                     break
                     ;;
                 "" | [Yy]* )
@@ -63,6 +65,7 @@ for choice in "${selected_options[@]}"; do
         fi
     fi
     "$choice/${choice}_install.sh"
+    touch "$choice/.installed"
 done
 
 cd $FAUXSTAR_INSTALL_DIR

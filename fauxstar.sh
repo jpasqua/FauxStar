@@ -3,8 +3,8 @@
 # Get the directory where this script is located
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
-# Find all subdirectories
-emulator_dirs=($(find "$SCRIPT_DIR" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;))
+# Find all subdirectories that have a ".installed" file in them
+emulator_dirs=($(find "$SCRIPT_DIR" -mindepth 1 -maxdepth 1 -type d -exec test -e {}/.installed \; -exec basename {} \;))
 
 # Check if there are any subdirectories
 if [ ${#emulator_dirs[@]} -eq 0 ]; then
