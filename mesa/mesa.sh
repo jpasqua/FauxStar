@@ -124,4 +124,4 @@ fi
 # Change directory to the WORLD directory
 cd "$WORLD_HOME" || { echo "Error: Cannot change directory to $WORLD_HOME"; exit 1; }
 
-java -jar $BASE_DIR/.jar -"$EMULATOR_TYPE" "$WORLD" "$@" $ADDITIONAL_PARAMS
+java -jar $BASE_DIR/dwarf.jar -"$EMULATOR_TYPE" "$WORLD" "$@" $ADDITIONAL_PARAMS
