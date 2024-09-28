@@ -50,7 +50,8 @@ if [ ${#selected_options[@]} -eq 0 ]; then
     exit 0
 fi
 
-rm -f collected_install_notes.txt
+# Empty out/create the notes file
+> collected_install_notes.txt
 
 export FAUXSTAR_INSTALL_DIR=`pwd`
 # Process the user's selections
