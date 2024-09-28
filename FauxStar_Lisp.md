@@ -6,7 +6,9 @@ Special thanks to [Paola Amoroso](https://github.com/pamoroso) for answering all
 
 I don't know my way around the Lisp world, so this is a bare-bones installation of Medley. For many more details on the operation of the emulator, please refer to extensive documentation provided by the [Medley Interlisp Project](https://interlisp.org). In particular take a look at [Using Medley InterLisp](https://interlisp.org/doc/info/Using.html).
 
-***Limitations***: At the moment the Lisp installation only runs on Raspberry Pi. Medley works great on Windows and Mac, but I don't handle those environments in the install yet since I am focused on RPi for the FauxStar replica.
+***Windows***: The Lisp installation on Windows is largely a manual process. When asked to do so, please follow the process found on the [Medley GitHub Site](https://interlisp.org/software/install-and-run/windows/native/) that describes how to do a native Windows installation.
+
+As part of the process you will be asked where you want to install the files. Do not accept the default folder it suggests. The installation script will tell you the folder to use before you are asked.
 
 <a id=”Usage”></a>
 ## Usage

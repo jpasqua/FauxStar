@@ -4,8 +4,6 @@ The *FauxStar* Mesa World is a packaging of the wonderful [Dwarf emulator for th
 
 Though the name *FauxStar* puts a lot of emphasis on the [Star](https://en.wikipedia.org/wiki/Xerox_Star) part of this, there is actually no Star image included! ViewPoint, the next version of Star is the earliest version of the image to run here. In this context I'm using "Star" as a shorthand for a [Xerox "D" machine](https://en.wikipedia.org/wiki/Xerox_Star#Hardware) capable of running the Star software and the [Xerox Development Environment](https://web.archive.org/web/20041204132344/http://www.apearson.f2s.com/xde.html) (XDE)
 
-***Limitations***: I've tested this on Mac, Raspberry Pi (Bookworm), and Windows 11; however, all of the instructions and scripts are [Bash scripts](https://en.wikipedia.org/wiki/Bash_(Unix_shell)). To use them directly on Windows you'll have to use something like [git bash](https://gitforwindows.org) or [WSL](https://learn.microsoft.com/en-us/windows/wsl/install). I tested with git bash.
-
 ## Nomenclature
 
 | Term          | Meaning        |

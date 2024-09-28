@@ -4,8 +4,6 @@ Using the instructions below you can add Samlltalk-80 capabilities to *FauxStar*
 
 For many more details on the operation of the emulator, refer to the original, and much more comprehensive, documentation provided by [@devhawala](https://github.com/devhawala)
 
-***Limitations***: I've tested this on Mac, Raspberry Pi (Bookworm), and Windows 11; however, all of the instructions and scripts are [Bash scripts](https://en.wikipedia.org/wiki/Bash_(Unix_shell)). To use them directly on Windows you'll have to use something like [git bash](https://gitforwindows.org) or [WSL](https://learn.microsoft.com/en-us/windows/wsl/install). I tested with git bash.
-
 ## Nomenclature
 
 | Term          | Meaning        |

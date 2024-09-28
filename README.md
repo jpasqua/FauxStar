@@ -27,7 +27,9 @@ The rest of the documentation is split into the following parts in the order you
 
 ## Software Setup
 
-Follow the steps below to get your RPi configured and the emulators downloaded. There are futher steps you'll need to follow that are specific to the Mesa and Smalltalk emulators respectively.
+Follow the steps below to get your RPi configured and the emulators downloaded.
+
+***Limitations***: *FauxStar* is targeted to the Raspberry Pi, but I have tested on Mac and Windows 11 to some degree. The install scripts are [Bash scripts](https://en.wikipedia.org/wiki/Bash_(Unix_shell)). To use them directly on Windows you'll have to use something like [git bash](https://gitforwindows.org), [Cygwin](https://cygwin.com), or [WSL](https://learn.microsoft.com/en-us/windows/wsl/install). I have only tested with git bash.
 
 * **Prepare Raspberry Pi OS**. Create an image of the Raspberry Pi OS that is appropriate for your Pi. Don't use the Lite version - you'll need the window system installed. I used the latest OS release as of September 2024, Bookworm. Boot the OS and customize as you like.
 * **Install the emulators**: Use the commands below to download core files and launch the *FauxStar* installation process. *FauxStar* can be installed into any directory you like. Navigate (`cd`) to that directory before executing the following commands. You will be asked which of the available emulators you want to install (mesa, smalltalk-80, lisp). Choose at least one.
