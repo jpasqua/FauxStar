@@ -8,14 +8,16 @@ OS="$(uname -s)"
 case "$OS" in
     Darwin)
         ./lisp_install_mac.sh
-        MEDLEY=$BASE_DIR/medley/medley
         ;;
     Linux)
         ./lisp_install_linux.sh
-        MEDLEY="medley"
         ;;
-    CYGWIN*|MINGW*|MSYS*|MINGW32*|MINGW64*)
-        echo "FauxStar is not yet prepared to install on Windows"
+    MINGW64*)
+        ./lisp_instal_win.sh
+        exit 1
+        ;;
+    CYGWIN*|MINGW*|MSYS*|MINGW32*)
+        echo "FauxStar is not prepared to install on ${OS}"
         exit 1
         ;;
     *)
