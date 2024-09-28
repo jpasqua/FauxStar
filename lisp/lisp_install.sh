@@ -13,7 +13,7 @@ case "$OS" in
         ./lisp_install_linux.sh
         ;;
     MINGW64*)
-        ./lisp_instal_win.sh
+        ./lisp_install_win.sh
         exit 1
         ;;
     CYGWIN*|MINGW*|MSYS*|MINGW32*)
