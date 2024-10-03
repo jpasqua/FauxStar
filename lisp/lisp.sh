@@ -2,6 +2,11 @@
 
 ADDITIONAL_PARAMS=""
 
+# Set BASE_DIR to the full path of the directory containing the script
+BASE_DIR=$(realpath "$(dirname "$0")")
+
+MEDLEY=""
+OS="$(uname -s)"
 
 usage() {
     echo "Usage: $0 [-?]|[-fullscreen] [emulator_parameters...]"
@@ -37,32 +42,11 @@ choose_options() {
     echo
 }
 
+MEDLEY="medley"
+MEDLEY=`which $MEDLEY`
 
-# Set BASE_DIR to the full path of the directory containing the script
-BASE_DIR=$(realpath "$(dirname "$0")")
-
-MEDLEY=""
-OS="$(uname -s)"
-
-case "$OS" in
-    Darwin)
-        MEDLEY=$BASE_DIR/medley/medley
-        ;;
-    Linux)
-        MEDLEY="medley"
-        ;;
-    CYGWIN*|MINGW*|MSYS*|MINGW32*|MINGW64*)
-        echo "FauxStar is not yet prepared to run on Windows"
-        exit 1
-        ;;
-    *)
-        echo "Unknown OS: $OS"
-        exit 1
-        ;;
-esac
-
-if ! which $MEDLEY > /dev/null 2>&1; then
-    echo "There is not a valid Lisp (medley) installation."
+if [ "$MEDLEY" == "" ]; then
+    echo "There is not a valid Lisp (Medley) installation."
     exit 1
 fi
 
