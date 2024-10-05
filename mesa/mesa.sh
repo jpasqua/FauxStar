@@ -1,16 +1,77 @@
 #!/usr/bin/env bash
 
+# Initialize variables
+portal_mode=""
 ADDITIONAL_PARAMS=""
+EMULATOR_TYPE=""
+WORLD=""
 
+# Usage message function
 usage() {
-    echo "Usage: $0 [-?]|[<draco|duchess> <world_name>] [emulator_parameters...]"
-    echo "Example:"
-    echo "  $0 duchess xde -fullscreen"
-    echo
-    echo "For a guided process, provide no parameters"
-    echo "  $0"
-    echo
-    exit 1
+    echo "Usage: $0 [-h|--help] [-p|--portal] [-e|--emulator draco|duchess] [-w|--world <world_name>] [additional_params...]"
+    echo "With no parameters you will be taken through a guided process, otherwise the parameters are:"
+    echo "  -h, --help          Show this help message"
+    echo "  -p, --portal        Enable portal mode (Also sends '-fullscreen' to the emulator)"
+    echo "  -e, --emulator      Sets the emulator type to either 'draco' or 'duchess'"
+    echo "  -w, --world         Sets the world to the provided value"
+    echo "  [additional_params] Optional parameters to be passed to the emulator"
+    exit 0
+}
+
+parse_args() {
+# Parse command-line arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -h|--help)
+                usage
+                ;;
+            -p|--portal)
+                portal_mode="y"
+                ADDITIONAL_PARAMS+=" -fullscreen"
+                shift # Move to the next argument
+                ;;
+            -e|--emulator)
+                if [[ "$2" == "draco" || "$2" == "duchess" ]]; then
+                    EMULATOR_TYPE="$2"
+                    shift 2 # Move past the option and its argument
+                else
+                    echo "Error: --emulator requires an argument 'draco' or 'duchess'"
+                    usage
+                fi
+                ;;
+            -w|--world)
+                if [[ -n "$2" ]]; then
+                    world="$2"
+                    shift 2 # Move past the option and its argument
+                else
+                    echo "Error: --world requires a non-empty string argument"
+                    usage
+                fi
+                ;;
+            --) # End of all options
+                shift
+                break
+                ;;
+            -*)
+                echo "Unknown option: $1"
+                usage
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+
+    # Validate required parameters
+    if [[ -z "$EMULATOR_TYPE" ]]; then
+        echo "Error: --emulator is required."
+        usage
+    fi
+
+    if [[ -z "$WORLD" ]]; then
+        echo "Error: --world is required."
+        usage
+    fi
 }
 
 choose_world() {
@@ -63,6 +124,11 @@ choose_world() {
     # Append "-fullscreen" if the user answers 'y' or 'Y'
     if [[ "$fullscreen_choice" == "y" || "$fullscreen_choice" == "Y"  || "$fullscreen_choice" == "" ]]; then
         ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS -fullscreen"
+        read -p "Run in portal? ([y]/n): " portal_mode
+        portal_mode="${portal_mode:-"y"}"
+        if [[ "$portal_mode" != "y" ]]; then
+            portal_mode=""
+        fi
     fi
 
     # Ask for any additional parameters
@@ -83,7 +149,7 @@ choose_world() {
     ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS $more_params"
 
     echo "NOTE: The direct command to launch with these options:"
-    echo "$0 $EMULATOR_TYPE $WORLD $ADDITIONAL_PARAMS"
+    echo "$0 $( [[ "$portal_mode" == "y" ]] && echo '-p' ) -e $EMULATOR_TYPE -w $WORLD $ADDITIONAL_PARAMS"
     echo
 }
 
@@ -100,17 +166,12 @@ fi
 if [ "$#" -eq 0 ]; then
     # If we were given no arguments, provide a list of choices
     choose_world
-elif [ "$#" -lt 2 ]; then
-    # If we weren't given enough options, provide usage details
-    usage
 else
-    # Grab the emulator type and name of the world we want to run
-    EMULATOR_TYPE=$1
-    WORLD=$2
-    # All other parameters will be passed along, so get rid of these 2
-    shift 2
-    if [[ "$EMULATOR_TYPE" != "draco" && "$EMULATOR_TYPE" != "duchess" ]]; then
-        usage
+    parse_args
+    if [ ! portal_mode == "y" ]; then
+        if [[ ! " $@ " =~ " -fullscreen " ]]; then
+            ADDITIONAL_PARAMS+=" -fullscreen"
+        fi
     fi
 fi
 
@@ -124,4 +185,8 @@ fi
 # Change directory to the WORLD directory
 cd "$WORLD_HOME" || { echo "Error: Cannot change directory to $WORLD_HOME"; exit 1; }
 
-java -jar $BASE_DIR/dwarf.jar -"$EMULATOR_TYPE" "$WORLD" "$@" $ADDITIONAL_PARAMS
+if [[ -z "$portal_mode" ]]; then
+    java -jar $BASE_DIR/dwarf.jar -"$EMULATOR_TYPE" "$WORLD" "$@" $ADDITIONAL_PARAMS
+else
+    $BASE_DIR/../launch_portal.sh java -t FauxStar -s 1152x861 -- -jar $BASE_DIR/dwarf.jar -"$EMULATOR_TYPE" "$WORLD" "$@" $ADDITIONAL_PARAMS
+fi

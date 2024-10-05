@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Initialize variables
+portal_mode=""
 ADDITIONAL_PARAMS=""
 
 # Get the current system's timezone offset in minutes from UTC
@@ -11,16 +13,74 @@ palo_alto_offset_minutes=$(TZ="America/Los_Angeles" date +%z | awk '{print ($1 /
 # Calculate the difference between the two offsets
 offset_difference=$((system_offset_minutes - palo_alto_offset_minutes))
 
+# Usage message function
 usage() {
-    echo "Usage: $0 [-?]|[<v2|v6> <world_name>] [emulator_parameters...]"
-    echo "Example:"
-    echo "  $0 v6 vanilla --fullscreen"
-    echo
-    echo "For a guided process, provide no parameters"
-    echo "  $0"
-    echo
-    exit 1
+    echo "Usage: $0 [-h|--help] [-p|--portal] [-e|--emulator v2|v6] [-w|--world <world_name>] [additional_params...]"
+    echo "With no parameters you will be taken through a guided process, otherwise the parameters are:"
+    echo "  -h, --help          Show this help message"
+    echo "  -p, --portal        Enable portal mode (Also sends '-fullscreen' to the emulator)"
+    echo "  -e, --emulator      Sets the emulator type to either 'v2' or 'v6'"
+    echo "  -w, --world         Sets the world to the provided value"
+    echo "  [additional_params] Optional parameters to be passed to the emulator"
+    exit 0
 }
+
+parse_args() {
+# Parse command-line arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -h|--help)
+                usage
+                ;;
+            -p|--portal)
+                portal_mode="y"
+                ADDITIONAL_PARAMS+=" -fullscreen"
+                shift # Move to the next argument
+                ;;
+            -e|--emulator)
+                if [[ "$2" == "v2" || "$2" == "v6" ]]; then
+                    EMULATOR_TYPE="$2"
+                    shift 2 # Move past the option and its argument
+                else
+                    echo "Error: --emulator requires an argument 'v2' or 'v6'"
+                    usage
+                fi
+                ;;
+            -w|--world)
+                if [[ -n "$2" ]]; then
+                    world="$2"
+                    shift 2 # Move past the option and its argument
+                else
+                    echo "Error: --world requires a non-empty string argument"
+                    usage
+                fi
+                ;;
+            --) # End of all options
+                shift
+                break
+                ;;
+            -*)
+                echo "Unknown option: $1"
+                usage
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+
+    # Validate required parameters
+    if [[ -z "$EMULATOR_TYPE" ]]; then
+        echo "Error: --emulator is required."
+        usage
+    fi
+
+    if [[ -z "$WORLD" ]]; then
+        echo "Error: --world is required."
+        usage
+    fi
+}
+
 
 choose_world() {
     menu_options=()
@@ -71,6 +131,11 @@ choose_world() {
     # Append "--fullscreen" if the user answers 'y' or 'Y'
     if [[ "$fullscreen_choice" == "y" || "$fullscreen_choice" == "Y"  || "$fullscreen_choice" == "" ]]; then
         ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS --fullscreen"
+        read -p "Run in portal? ([y]/n): " portal_mode
+        portal_mode="${portal_mode:-"y"}"
+        if [[ "$portal_mode" != "y" ]]; then
+            portal_mode=""
+        fi
     fi
 
     # Ask for any additional parameters
@@ -119,17 +184,13 @@ fi
 # Check the number of arguments
 if [ $# -eq 0 ]; then
     choose_world
-elif [ $# -ge 2 ]; then
-    # Grab the emulator type and name of the world we want to run
-    EMULATOR_TYPE=$1
-    WORLD=$2
-    # All other parameters will be passed along, so get rid of these 2
-    shift 2
-    if [[ "$EMULATOR_TYPE" != "v2" && "$EMULATOR_TYPE" != "v6" ]]; then
-        usage
-    fi
 else
-    usage
+    parse_args
+    if [ ! portal_mode == "y" ]; then
+        if [[ ! " $@ " =~ " -fullscreen " ]]; then
+            ADDITIONAL_PARAMS+=" -fullscreen"
+        fi
+    fi
 fi
 
 WORLD_HOME=$BASE_DIR/worlds/$EMULATOR_TYPE/$WORLD
@@ -140,4 +201,8 @@ fi
 
 IMAGE_NAME=$(cat worlds/$EMULATOR_TYPE/$WORLD/image_name.txt)
 
-java -jar $BASE_DIR/st80vm.jar "$@" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME
+if [[ -z "$portal_mode" ]]; then
+    java -jar $BASE_DIR/st80vm.jar "$@" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME
+else
+    $BASE_DIR/../launch_portal.sh java -t FauxStar -s 1152x861 -- -jar $BASE_DIR/st80vm.jar "$@" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME
+fi
