@@ -168,7 +168,7 @@ choose_world() {
     ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS $more_params"
 
     echo "NOTE: The direct command to launch with these options:"
-    echo "$0 $EMULATOR_TYPE $WORLD $ADDITIONAL_PARAMS"
+    echo "$0 $( [[ "$portal_mode" == "y" ]] && echo '-p' ) -e $EMULATOR_TYPE -w $WORLD $ADDITIONAL_PARAMS"
     echo
 }
 
