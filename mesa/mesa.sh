@@ -124,7 +124,7 @@ choose_world() {
     # Append "-fullscreen" if the user answers 'y' or 'Y'
     if [[ "$fullscreen_choice" == "y" || "$fullscreen_choice" == "Y"  || "$fullscreen_choice" == "" ]]; then
         ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS -fullscreen"
-        read -p "Run in portal? ([y]/n): " portal_mode
+        read -p "Run in portal mode? ([y]/n): " portal_mode
         portal_mode="${portal_mode:-"y"}"
         if [[ "$portal_mode" != "y" ]]; then
             portal_mode=""
