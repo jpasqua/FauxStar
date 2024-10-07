@@ -15,7 +15,7 @@ fi
 # Function to display usage message
 usage() {
     emulators=$(IFS='|' ; echo "${emulator_dirs[*]}")
-    echo "Usage: $0 [$emulators] [additional parameters]"
+    echo "Usage: $0 [$emulators] [additional_parameters]"
     echo "  * If you provide no arguments you will be asked to choose an emulation"
     echo "    type and then be given a menu of options specific to that emulator."
     echo "  * If you provide only the emulation type, you will be presented with"
