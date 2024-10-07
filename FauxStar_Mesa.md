@@ -19,20 +19,23 @@ Though the name *FauxStar* puts a lot of emphasis on the [Star](https://en.wikip
 To run the emulator use the `mesa.sh` script in the `mesa` directory. If you run the script with no parameters you will be guided through the choice of available worlds and options. Alternatively you can specify the emulator and world explicitly.
 
 ```
-Usage: mesa/mesa.sh [-?]|[<draco|duchess> <world_name>] [emulator_parameters...]
-Example:
-  mesa/mesa.sh duchess xde -fullscreen
+Usage: fauxstar/mesa/mesa.sh [-h|--help] -p|--portal -e|--emulator (draco|duchess) -w|--world <world_name> [-- other_params...]
 
-For a guided process, provide no parameters
-  mesa/mesa.sh
+  -h, --help          Show this help message
+  -p, --portal        Enable portal mode (Also sends '-fullscreen' to the emulator)
+  -e, --emulator      Sets the emulator type to either 'draco' or 'duchess'
+  -w, --world         Sets the world to the provided value
+  --                  Pass any other parameters to the emulator
+
+With no parameters you will be taken through a guided process
 ```
 
 When you're using the guided experience you'll be presented with a list of available worlds. If you add your own world (see below) it will appear in this list. After selecting a world from the list, you'll be asked if you wish to run in full screen mode and whether you'd like to supply any additional parameters. Once you've answered all the questions, the emulator will be launched. The command used to launch it will be displayed in the terminal so if you'd like to run this world again, you can just copy and paste the command rather than going through the menus.
 
-When you're not using the menu, there are two required positional parameters:
+When you're not using the menu, there are two required parameters:
 
-1. Emulator Type: *draco* or *duchess*.
-2. World: The name of a world in the `worlds` subdirectory. The default worlds are:
+1. `--emulator`: Specifies which version of the emulator to use, *draco* or *duchess*.
+2. `--world`: The name of a world in the `worlds` subdirectory. The default worlds are:
 	* *draco*
 		* vp2.0.5: A ViewPoint 2.0.5 Installation
 	   	* xde5.0: A barebones install of the Xerox Development Environment (XDE) 5.0
@@ -43,7 +46,9 @@ When you're not using the menu, there are two required positional parameters:
       	* gv_2.1_mono: GlobalView 2.1 configured with a monochrome display
       	* xde: A barebones install of the XDE based on an image from the [Dawn emulator](https://www.woodward.org/mps/).
 
-You may also add parameters after the first two that will be passed along to the emulator. A full list can be found at the [repo](https://github.com/jpasqua/dwarf?tab=readme-ov-file#command-line-parameters-for-dwarf). Of interest here is the `-fullscreen` parameter which is described below.
+You may optionally provide the `--portal` option which is useful for viewing in fullscreen mode on a physical display that is smaller than the emulated display. If you provide the `--portal` option, the `-fullscreen` option will be provided to the emulator automatically.
+
+You may also add parameters that will be passed along to the emulator after the "end-of-parameters" delimiter:  `--`. A full list can be found at the [repo](https://github.com/jpasqua/dwarf?tab=readme-ov-file#command-line-parameters-for-dwarf), including the `-fullscreen` parameter which is described below.
 
 ### Fullscreen Notes
 
@@ -52,6 +57,8 @@ Fullscreen mode is available when using *draco* or *duchess* but they have an im
 When using fullscreen mode the emulator will take over the entire display and will not show the toolbar or status line as usual. This provides a more immersive experience of the emulation. Of course at times you may wish to see status or need to use the toolbar. You can toggle the visibility of these emulator controls by pressing `F12`. Unlike windowed mode, when using fullscreen mode both the toolbar and the status line will appear at the top of the display. Some of the bottom of the emulated screen may be clipped away.
 
 When starting in fullscreen mode you'll see a brief flash on the screen as if a window opens and immediately closes. That is exactly what is happening. This is a "probe" to determine the actual usable screen size.
+
+Using the `--portal` option is useful if your physical display is smaller than the emulated display. In this case you will view the emulated display through a "portal" which is the size of the physical display. The  portal will pan around the emulated display as the mouse hits the edges of the portal.
 
 *Caveat on duchess in fullscreen mode*: If you launch a monochrome world (xde or gv_2.1_mono) in duchess, the width of the screen must be a multiple of 64 pixels. I'm not sure exactly why yet - this was determined experimentally. There is a reason for it to be limited to a mutiple of 16 pixels wide, but in practice it appears to be 64. The screen width will automatically be narrowed if necessary leaving a small border on the left and right of the display.
 

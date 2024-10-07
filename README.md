@@ -29,9 +29,28 @@ The rest of the documentation is split into the following parts in the order you
 
 Follow the steps below to get your RPi configured and the emulators downloaded.
 
-***Limitations***: *FauxStar* is targeted to the Raspberry Pi, but I have tested on Mac and Windows 11 to some degree. The install scripts are [Bash scripts](https://en.wikipedia.org/wiki/Bash_(Unix_shell)). To use them directly on Windows you'll have to use something like [git bash](https://gitforwindows.org), [Cygwin](https://cygwin.com), or [WSL](https://learn.microsoft.com/en-us/windows/wsl/install). I have only tested with git bash.
+***Limitations***: *FauxStar* is targeted to the Raspberry Pi. All the unedrlying emulators work wonderfull on the Pi as well as Mac and Windows, but as this project focuses on the replica model, I've only targeted the scripts for the Pi.
 
 * **Prepare Raspberry Pi OS**. Create an image of the Raspberry Pi OS that is appropriate for your Pi. Don't use the Lite version - you'll need the window system installed. I used the latest OS release as of September 2024, Bookworm. Boot the OS and customize as you like.
+* **Preparing the Display**
+	* **Adjust Screen Settings**: The display board comes with a control board with several buttons. The boards are connected to one another through a fairly flat 6-wire cable. You won't be using the control board in normal operation, but you may wish to connect it during initial setup to adjust things like input source, brightness, etc. After that you can remove the control board and cable and only reattach it if needed.
+	* **Flip the display orientation**. Because of the placement of ports on the display, it must be mounted upside down in the case. This means that the display orientation needs to be flipped 180&deg;. This is accomplished using the Screen Preferences in the Raspberry Pi desktop. Selected the inverted option.
+
+		[<img src="images/SW/ScrPrefs.png" width="256">](images/SW/ScrPrefs.png)
+		[<img src="images/SW/Inverted.png" width="256">](images/SW/Inverted.png)
+
+  		Once you've done this, the Window System will display properly. Note, however, that as the Pi is booting, everything will appear upside down until the window system launches.
+	* **Add Resolutions** (Optional). By default the 5" display and associated display board will default to 640x480 (the native resolution) and allow you to switch the resolution to 720x400. However, the board will actually support resolutions up to 1920x1080. Of course the screen is completely at that resolution. It can be advantageous for some demo purposes to be able to use the higher resolutions to give the overall feel of the machine without being able to easily read the detailed text. Doing so isn't hard, but you need to be precise in the following steps.
+	
+		```
+		cd ~
+		curl -L -o multi-edid.bin https://raw.githubusercontent.com/jpasqua/FauxStar/main/resources/multi-edid.bin
+		sudo cp multi-edid.bin /lib/firmware/
+		sudo sed -i -e '$ s/$/ drm.edid_firmware=HDMI-A-1:multi-edid.bin/' /boot/firmware/cmdline.txt
+		```
+		
+		This places a custom [EDID](https://en.wikipedia.org/wiki/Extended_Display_Identification_Data) in the `/lib/firmware` folder and tells the system to refer to it when booting. This EDID tells the system that many other resolutions are available. It will default to 1024x768, so you'll need to use a tool like Screen Preferences to set it to 640x480 or other resolutions.
+	
 * **Install the emulators**: Use the commands below to download core files and launch the *FauxStar* installation process. *FauxStar* can be installed into any directory you like. Navigate (`cd`) to that directory before executing the following commands. You will be asked which of the available emulators you want to install (mesa, smalltalk-80, lisp). Choose at least one.
 
 ```
@@ -52,7 +71,7 @@ To run any of the available emulators invoke the `fauxstar.sh` script. For examp
 Doing so will provide a list of available emulators. You'll be asked to choose one and then you will be given a menu of options that are specific to that emulator. If you use the `-h` option you'll be given a usage message:
 
 ```
-Usage: ./fauxstar.sh [mesa|st80|lisp] [additional parameters]
+Usage: ./fauxstar.sh [mesa|st80|lisp] [additional_parameters]
   * If you provide no arguments you will be asked to choose an emulation
     type and then be given a menu of options specific to that emulator.
   * If you provide only the emulation type, you will be presented with

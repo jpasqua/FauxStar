@@ -18,27 +18,32 @@ For many more details on the operation of the emulator, refer to the original, a
 To run the emulator use the `st80.sh` script in the `st-80` directory. If you run the script with no parameters you will be guided through the choice of available worlds and options. Alternatively you can specify the emulator and world explicitly.
 
 ```
-Usage: st-80/st80.sh [-?]|[<v2|v6> <world_name>] [emulator_parameters...]
-Example:
-  st-80/st80.sh v6 analyst -fullscreen
+Usage: fauxstar/st80/st80.sh [-h|--help] -p|--portal -e|--emulator (v2|v6) -w|--world <world_name> [-- other_params]
 
-For a guided process, provide no parameters
-  st-80/st80.sh
+  -h, --help          Show this help message
+  -p, --portal        Enable portal mode (Also sends '-fullscreen' to the emulator)
+  -e, --emulator      Sets the emulator type to either 'v2' or 'v6'
+  -w, --world         Sets the world to the provided value
+  --                  Pass any other parameters to the emulator
+
+With no parameters you will be taken through a guided process
 ```
 
 When you're using the guided experience you'll be presented with a list of available worlds. If you add your own world (see below) it will appear in this list. After selecting a world from the list, you'll be asked if you wish to run in full screen mode and whether you'd like to supply any additional parameters. Once you've answered all the questions, the emulator will be launched. The command used to launch it will be displayed in the terminal so if you'd like to run this world again, you can just copy and paste the command rather than going through the menus.
 
-When you're not using the menu, there are two required positional parameters:
+When you're not using the menu, there are two required parameters:
 
-1. Smalltalk-80 Version: v2 or v6.
-2. World: The name of a world in the `worlds` subdirectory. The worlds are organized around which version of Smalltalk-80:
+1. `--emulator`: Specifies which version of the emulator to use, v2 or v6.
+2. `--world`: The name of a world in the `worlds` subdirectory. The worlds are organized around which version of Smalltalk-80:
 	* *v2*: 
 		* alto
 	* *v6*
 		* analyst
 		* vanilla
 
-You may also add parameters after the first two that will be passed along to the emulator. A full list can be found at the [repo](https://github.com/devhawala/ST80#invoking-st80). Of interest here is the `--fullscreen` parameter which is described below.
+You may optionally provide the `--portal` option which is useful for viewing in fullscreen mode on a physical display that is smaller than the emulated display. If you provide the `--portal` option, the `--fullscreen` option will be provided to the emulator automatically.
+
+You may also add parameters that will be passed along to the emulator after the "end-of-parameters" delimiter:  `--` . A full list can be found at the [repo](https://github.com/devhawala/ST80#invoking-st80), including the `--fullscreen` option which is described below.
 
 ### Fullscreen Notes
 
@@ -57,6 +62,8 @@ At any time in the emulated environment you may change the emulated screen size 
 ```
 	DisplayScreen displayExtent: 1024@768
 ```
+
+Using the `--portal` option is useful if your physical display is smaller than the emulated display. In this case you will view the emulated display through a "portal" which is the size of the physical display. The  portal will pan around the emulated display as the mouse hits the edges of the portal.
 
 ### Shutting down the system
 
