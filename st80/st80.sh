@@ -3,6 +3,7 @@
 # Initialize variables
 portal_mode=""
 ADDITIONAL_PARAMS=""
+remaining_args=()
 
 # Get the current system's timezone offset in minutes from UTC
 system_offset_minutes=$(date +%z | awk '{print ($1 / 100) * 60 + ($1 % 100)}')
@@ -15,18 +16,20 @@ offset_difference=$((system_offset_minutes - palo_alto_offset_minutes))
 
 # Usage message function
 usage() {
-    echo "Usage: $0 [-h|--help] [-p|--portal] [-e|--emulator v2|v6] [-w|--world <world_name>] [additional_params...]"
-    echo "With no parameters you will be taken through a guided process, otherwise the parameters are:"
+    echo "Usage: $0 [-h|--help] -p|--portal -e|--emulator (v2|v6) -w|--world <world_name> [-- other_params]"
+    echo ""
     echo "  -h, --help          Show this help message"
     echo "  -p, --portal        Enable portal mode (Also sends '-fullscreen' to the emulator)"
     echo "  -e, --emulator      Sets the emulator type to either 'v2' or 'v6'"
     echo "  -w, --world         Sets the world to the provided value"
-    echo "  [additional_params] Optional parameters to be passed to the emulator"
+    echo "  --                  Pass any other parameters to the emulator"
+    echo ""
+    echo "With no parameters you will be taken through a guided process"
     exit 0
 }
 
 parse_args() {
-# Parse command-line arguments
+    # Parse command-line arguments which are passed as a param
     while [[ $# -gt 0 ]]; do
         case "$1" in
             -h|--help)
@@ -34,7 +37,6 @@ parse_args() {
                 ;;
             -p|--portal)
                 portal_mode="y"
-                ADDITIONAL_PARAMS+=" -fullscreen"
                 shift # Move to the next argument
                 ;;
             -e|--emulator)
@@ -48,7 +50,7 @@ parse_args() {
                 ;;
             -w|--world)
                 if [[ -n "$2" ]]; then
-                    world="$2"
+                    WORLD="$2"
                     shift 2 # Move past the option and its argument
                 else
                     echo "Error: --world requires a non-empty string argument"
@@ -57,6 +59,7 @@ parse_args() {
                 ;;
             --) # End of all options
                 shift
+                remaining_args=("$@")
                 break
                 ;;
             -*)
@@ -82,7 +85,7 @@ parse_args() {
 }
 
 
-choose_world() {
+choose_options() {
     menu_options=()
 
     # Loop through each subfolder in the worlds directory
@@ -140,7 +143,7 @@ choose_world() {
 
     # Ask for any additional parameters
     while true; do
-        read -p "Additional parameters (press [Enter] for none, [?] for options): " more_params
+        read -p "Additional params ([Enter] for none, [?] for options): " more_params
         if [[ "$more_params" == "?" ]]; then
             echo "  --statusline:    Display a status line if not in fullscreen mode"
             echo "  --stats:         Display some stats when the emulator exits"
@@ -168,8 +171,8 @@ choose_world() {
     ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS $more_params"
 
     echo "NOTE: The direct command to launch with these options:"
-    echo "$0 $( [[ "$portal_mode" == "y" ]] && echo '-p' ) -e $EMULATOR_TYPE -w $WORLD $ADDITIONAL_PARAMS"
-    echo
+    echo "$0 $( [[ "$portal_mode" == "y" ]] && echo '-p' ) -e $EMULATOR_TYPE -w $WORLD -- $ADDITIONAL_PARAMS"
+    echo ""
 }
 
 # Set BASE_DIR to the full path of the directory containing the script
@@ -183,13 +186,12 @@ fi
 
 # Check the number of arguments
 if [ $# -eq 0 ]; then
-    choose_world
+    choose_options
 else
-    parse_args
-    if [ ! portal_mode == "y" ]; then
-        if [[ ! " $@ " =~ " -fullscreen " ]]; then
-            ADDITIONAL_PARAMS+=" -fullscreen"
-        fi
+    parse_args "$@"
+    if [ portal_mode == "y" ]; then
+        # Ensure we're in fullscreen mode
+        ADDITIONAL_PARAMS+=" --fullscreen"
     fi
 fi
 
@@ -202,7 +204,8 @@ fi
 IMAGE_NAME=$(cat worlds/$EMULATOR_TYPE/$WORLD/image_name.txt)
 
 if [[ -z "$portal_mode" ]]; then
-    java -jar $BASE_DIR/st80vm.jar "$@" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME
+    java -jar $BASE_DIR/st80vm.jar "${remaining_args[@]}" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME
 else
-    $BASE_DIR/../launch_portal.sh java -t FauxStar -s 1152x861 -- -jar $BASE_DIR/st80vm.jar "$@" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME
+    $BASE_DIR/../launch_portal.sh java -t FauxStar -s 1152x861 -- -jar $BASE_DIR/st80vm.jar \
+            "${remaining_args[@]}" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME
 fi
