@@ -1,6 +1,11 @@
 """
 Provide "blinkenlights" for FauxStar. This includes the Maintenance Panel (MP) and floppy activity LED.
 
+Options:
+    -m | --mpcode NUMBER : Sets the maintenance panel code to NUMBER.
+    -f | --fakeactivity  : Enables the LED blinking activity.
+    -h | --help          : Displays help information.
+
 Two concurrent threads control the lights:
 
 1. **MP Loop (Maintenance Panel Loop)**:
@@ -27,6 +32,7 @@ Dependencies:
 
 import os
 import sys
+import argparse
 import threading
 import time
 import random
@@ -47,6 +53,13 @@ FONT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), FONT_NAME)
 
 # Event to signal the led_blink_loop to stop
 stop_event = threading.Event()
+
+# Argument parser setup
+def parse_args():
+    parser = argparse.ArgumentParser(description="Provide 'blinkenlights' for FauxStar.")
+    parser.add_argument("-m", "--mpcode", type=int, help="Set the Maintenance Panel code to a NUMBER.")
+    parser.add_argument("-f", "--fakeactivity", action="store_true", help="Enable the fake LED blinking activity.")
+    return parser.parse_args()
 
 # GPIO setup and cleanup functions
 def setup_gpio():
@@ -96,9 +109,13 @@ def update_display(number, oled, leading_zeroes=False):
     oled.show()
 
 # MP Loop (Maintenance Panel Loop)
-def mp_loop():
+def mp_loop(initial_code=None):
     """Thread that reads numbers from stdin and displays them on the OLED."""
     oled = setup_oled()
+    
+    if initial_code is not None:
+        update_display(initial_code, oled, leading_zeroes=True)
+    
     for line in sys.stdin:
         try:
             number = int(line.strip())
@@ -140,25 +157,33 @@ def led_blink_loop():
             time.sleep(BLINK_DURATION)
 
 # Thread management functions
-def start_threads():
+def start_threads(fakeactivity, mpcode=None):
     """Start the MP and LED blink threads."""
-    mp_thread = threading.Thread(target=mp_loop)
+    mp_thread = threading.Thread(target=mp_loop, args=(mpcode,))
     mp_thread.start()
-    led_thread = threading.Thread(target=led_blink_loop)
-    led_thread.start()
+    
+    led_thread = None
+    if fakeactivity:
+        led_thread = threading.Thread(target=led_blink_loop)
+        led_thread.start()
+
     return mp_thread, led_thread
 
-def stop_threads(mp_thread, led_thread):
+def stop_threads(mp_thread, led_thread=None):
     """Stop the MP and LED blink threads, ensuring clean exit."""
     mp_thread.join()  # Wait for MP loop to complete
-    stop_event.set()  # Signal LED thread to stop
-    led_thread.join()
+    
+    if led_thread:
+        stop_event.set()  # Signal LED thread to stop
+        led_thread.join()
 
 # Main function
 if __name__ == "__main__":
+    args = parse_args()
+
     try:
         setup_gpio()
-        mp_thread, led_thread = start_threads()
+        mp_thread, led_thread = start_threads(args.fakeactivity, args.mpcode)
         stop_threads(mp_thread, led_thread)
     finally:
         cleanup_gpio()
