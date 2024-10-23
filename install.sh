@@ -7,8 +7,12 @@ if [ -d "FauxStar-main" ]; then
     mv FauxStar-main/mesa/ .
     mv FauxStar-main/st80/ .
     mv FauxStar-main/lisp/ .
+    mv FauxStar-main/blinkenlights/ .
     rm -rf FauxStar-main/
 fi
+
+# Install the blinkenlights functionality
+blinkenlights/install.sh
 
 # Array of installation options
 install_options=("mesa" "st80" "lisp")
