@@ -117,10 +117,20 @@ def mp_loop(initial_code=None):
         update_display(initial_code, oled, leading_zeroes=True)
     
     for line in sys.stdin:
+        line = line.strip()
+        if not line.startswith("MPCODE:"):
+            continue  # Ignore lines that don't start with "MPCODE:"
+
+        # Split the line into parts using ":" as a delimiter
+        parts = line.split(":", 1)
+        if len(parts) != 2:
+            continue  # Ignore lines that can't be split into exactly two parts
+
+        # Extract and validate the number part
         try:
-            number = int(line.strip())
+            number = int(parts[1].strip())
         except ValueError:
-            continue  # Skip lines that can't be converted to a number
+            continue  # Ignore lines where the second part is not a valid integer
 
         if number < 0:
             oled.fill(0)  # Clear the OLED screen
