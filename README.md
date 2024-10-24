@@ -50,15 +50,22 @@ Follow the steps below to get your RPi configured and the emulators downloaded.
 		```
 		
 		This places a custom [EDID](https://en.wikipedia.org/wiki/Extended_Display_Identification_Data) in the `/lib/firmware` folder and tells the system to refer to it when booting. This EDID tells the system that many other resolutions are available. It will default to 1024x768, so you'll need to use a tool like Screen Preferences to set it to 640x480 or other resolutions.
-	
+
+* **Activity LED**: The floppy drive of *FauxStar* has an activity LED. You can configure the software so that the status of that LED corresponds to the Pi's activity LED. To do this you need to add a line to the end of the Pi's `config.txt` file (`/boot/firmware/config.txt`):
+
+	```
+	dtoverlay=act-led,gpio=17
+	```
+	After the next reboot, the floppy led will mirror the PI's activity LED. This is also useful when you are shutting down your system to know when it is ok to turn the power off.
+
 * **Install the emulators**: Use the commands below to download core files and launch the *FauxStar* installation process. *FauxStar* can be installed into any directory you like. Navigate (`cd`) to that directory before executing the following commands. You will be asked which of the available emulators you want to install (mesa, smalltalk-80, lisp). Choose at least one.
 
-```
-mkdir fauxstar ; cd fauxstar
-curl -L -o FauxStar-main.zip https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip
-unzip FauxStar-main.zip ; rm FauxStar-main.zip
-FauxStar-main/install.sh
-```
+	```
+	mkdir fauxstar ; cd fauxstar
+	curl -L -o FauxStar-main.zip https://github.com/jpasqua/FauxStar/archive/refs/heads/main.zip
+	unzip FauxStar-main.zip ; rm FauxStar-main.zip
+	FauxStar-main/install.sh
+	```
 
 ## Running the Emulator(s)
 
