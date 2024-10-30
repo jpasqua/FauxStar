@@ -5,6 +5,7 @@ portal_mode=""
 fullscreen=""
 ADDITIONAL_PARAMS=""
 export VNCVIEWER_FULLSCREEN=""
+BASE_DIR=$(realpath "$(dirname "$0")")
 
 # Usage message function
 usage() {
@@ -102,6 +103,11 @@ elif [ "$fullscreen" == "y" ]; then
     echo "in (fullscreen=y) case: ADDITIONAL_PARAMS=${ADDITIONAL_PARAMS}"
 fi
 
+BLINK="${BASE_DIR}/../blinkenlights/blinkenlights.sh"
+START_BLINK="${BLINK} -t l15p"
+
 echo "VNCVIEWER_FULLSCREEN=${VNCVIEWER_FULLSCREEN}"
 echo "Launch Command: " $MEDLEY $ADDITIONAL_PARAMS "$@"
-$MEDLEY $ADDITIONAL_PARAMS "$@"
+$MEDLEY $ADDITIONAL_PARAMS "$@" | $START_BLINK
+
+$BLINK --stop

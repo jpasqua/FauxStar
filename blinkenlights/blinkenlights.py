@@ -3,7 +3,9 @@ Provide "blinkenlights" for FauxStar. This includes the Maintenance Panel (MP) a
 
 Options:
     -m | --mpcode NUMBER : Sets the maintenance panel code to NUMBER.
+    -t | --text String   : Set the Maintenance Panel code to a 4-char string.
     -f | --fakeactivity  : Enables the LED blinking activity.
+    -s | --stop          : Clear the Maintenance Panel and exit
     -h | --help          : Displays help information.
 
 Two concurrent threads control the lights:
@@ -57,7 +59,9 @@ stop_event = threading.Event()
 # Argument parser setup
 def parse_args():
     parser = argparse.ArgumentParser(description="Provide 'blinkenlights' for FauxStar.")
+    parser.add_argument("-s", "--stop", action="store_true", help="Clear the Maintenance Panel and LED, then quit.")
     parser.add_argument("-m", "--mpcode", type=int, help="Set the Maintenance Panel code to a NUMBER.")
+    parser.add_argument("-t", "--text", type=str, help="Set the Maintenance Panel code to a 4-char string.")
     parser.add_argument("-f", "--fakeactivity", action="store_true", help="Enable the fake LED blinking activity.")
     return parser.parse_args()
 
@@ -81,14 +85,11 @@ def setup_oled():
     oled.show()
     return oled
 
-# Update the OLED display
-def update_display(number, oled, leading_zeroes=False):
-    """Update the OLED display to show a number using a 7-segment style font."""
+# Update the display with a 4-character (max) string
+def update_display_with_text(display_text, oled):
     font = ImageFont.truetype(FONT_PATH, FONT_SIZE)
     image = Image.new('1', (OLED_WIDTH, OLED_HEIGHT))
     draw = ImageDraw.Draw(image)
-
-    display_text = f"{number:04d}" if leading_zeroes else str(number)
 
     # Get the size of the text to be drawn
     bbox = draw.textbbox((0, 0), display_text, font=font)
@@ -108,17 +109,24 @@ def update_display(number, oled, leading_zeroes=False):
     oled.image(image)
     oled.show()
 
+# Update the display with a number
+def update_display(number, oled, leading_zeroes=False):
+    display_text = f"{number:04d}" if leading_zeroes else str(number)
+    update_display_with_text(display_text, oled);
+
 # MP Loop (Maintenance Panel Loop)
-def mp_loop(initial_code=None):
+def mp_loop(initial_code=None, initial_text=None):
     """Thread that reads numbers from stdin and displays them on the OLED."""
     oled = setup_oled()
     
-    if initial_code is not None:
+    if initial_text is not None:
+        update_display_with_text(initial_text, oled)
+    elif initial_code is not None:
         update_display(initial_code, oled, leading_zeroes=True)
     
     for line in sys.stdin:
         line = line.strip()
-        if not line.startswith("MPCODE:"):
+        if not line.lower().startswith("mpcode:"):
             continue  # Ignore lines that don't start with "MPCODE:"
 
         # Split the line into parts using ":" as a delimiter
@@ -167,9 +175,9 @@ def led_blink_loop():
             time.sleep(BLINK_DURATION)
 
 # Thread management functions
-def start_threads(fakeactivity, mpcode=None):
+def start_threads(fakeactivity, mpcode=None, mptext=None):
     """Start the MP and LED blink threads."""
-    mp_thread = threading.Thread(target=mp_loop, args=(mpcode,))
+    mp_thread = threading.Thread(target=mp_loop, args=(mpcode,mptext,))
     mp_thread.start()
     
     led_thread = None
@@ -190,11 +198,20 @@ def stop_threads(mp_thread, led_thread=None):
 # Main function
 if __name__ == "__main__":
     args = parse_args()
+    # args.text has precedence over args.mpcode and is at most 4 characters
+    if args.text is not None:
+        args.mpcode = None
+        args.text = args.text[:4]  # Truncate to 4 characters
 
     try:
         setup_gpio()
-        mp_thread, led_thread = start_threads(args.fakeactivity, args.mpcode)
-        stop_threads(mp_thread, led_thread)
+        if args.stop:
+            setup_oled()            # Initialize and clear the screen
+            if args.fakeactivity:   # Turn off Faux Activity LED
+                GPIO.output(LED_PIN, GPIO.LOW)
+        else:
+            mp_thread, led_thread = start_threads(args.fakeactivity, args.mpcode, args.text)
+            stop_threads(mp_thread, led_thread)
     finally:
         cleanup_gpio()
-        print("Blinkenlights terminated")
+

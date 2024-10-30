@@ -186,9 +186,14 @@ fi
 # Change directory to the WORLD directory
 cd "$WORLD_HOME" || { echo "Error: Cannot change directory to $WORLD_HOME"; exit 1; }
 
+BLINK="${BASE_DIR}/../blinkenlights/blinkenlights.sh"
+START_BLINK="${BLINK} -m 0"
+
 if [[ -z "$portal_mode" ]]; then
-    java -jar $BASE_DIR/dwarf.jar -"$EMULATOR_TYPE" "$WORLD" "$@" $ADDITIONAL_PARAMS "${remaining_args[@]}"
+    java -jar $BASE_DIR/dwarf.jar -"$EMULATOR_TYPE" "$WORLD" "$@" $ADDITIONAL_PARAMS "${remaining_args[@]}" | $START_BLINK
 else
     $BASE_DIR/../launch_portal.sh java -t FauxStar -s 1152x861 -- -jar $BASE_DIR/dwarf.jar \
-            -"$EMULATOR_TYPE" "$WORLD" "${remaining_args[@]}" $ADDITIONAL_PARAMS
+            -"$EMULATOR_TYPE" "$WORLD" "${remaining_args[@]}" $ADDITIONAL_PARAMS | $START_BLINK
 fi
+
+$BLINK --stop

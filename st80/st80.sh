@@ -203,9 +203,15 @@ fi
 
 IMAGE_NAME=$(cat worlds/$EMULATOR_TYPE/$WORLD/image_name.txt)
 
+BLINK="${BASE_DIR}/../blinkenlights/blinkenlights.sh"
+START_BLINK="${BLINK} -t 5t80"
+
 if [[ -z "$portal_mode" ]]; then
-    java -jar $BASE_DIR/st80vm.jar "${remaining_args[@]}" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME
+    java -jar $BASE_DIR/st80vm.jar "${remaining_args[@]}" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME  | $START_BLINK
 else
     $BASE_DIR/../launch_portal.sh java -t FauxStar -s 1152x861 -- -jar $BASE_DIR/st80vm.jar \
-            "${remaining_args[@]}" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME
+            "${remaining_args[@]}" $ADDITIONAL_PARAMS $WORLD_HOME/$IMAGE_NAME  | $START_BLINK
 fi
+
+$BLINK --stop
+
