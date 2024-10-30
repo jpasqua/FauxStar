@@ -1,6 +1,6 @@
 # FauxStar
 
-This repository *will contain* the instructions for building a NN% scale Faux [Xerox Star Computer](https://en.wikipedia.org/wiki/Xerox_Star). I'm still in the process of getting accurate dimensions, making choices about scale, and thinking about the overall structure. In the mean time I've been assembling various bits of software so that the FauxStar will be able to emulate some of the classic Xerox environments.
+This repository *will contain* the instructions for building a ~30% scale Faux [Xerox Star Computer](https://en.wikipedia.org/wiki/Xerox_Star). I'm still in the process of getting accurate dimensions, making choices about scale, and thinking about the overall structure. In the mean time I've been assembling various bits of software so that the FauxStar will be able to emulate some of the classic Xerox environments.
 
 [<img src="images/XeroxDandelionFront.jpg" height="256">](images/XeroxDandelionFront.jpg)
 [<img src="images/XeroxDandelionOblique.jpg" height="256">](images/XeroxDandelionOblique.jpg)
@@ -51,12 +51,19 @@ Follow the steps below to get your RPi configured and the emulators downloaded.
 		
 		This places a custom [EDID](https://en.wikipedia.org/wiki/Extended_Display_Identification_Data) in the `/lib/firmware` folder and tells the system to refer to it when booting. This EDID tells the system that many other resolutions are available. It will default to 1024x768, so you'll need to use a tool like Screen Preferences to set it to 640x480 or other resolutions.
 
-* **Activity LED**: The floppy drive of *FauxStar* has an activity LED. You can configure the software so that the status of that LED corresponds to the Pi's activity LED. To do this you need to add a line to the end of the Pi's `config.txt` file (`/boot/firmware/config.txt`):
+* **Enable the Activity LED and Maintenance Panel Display**: The floppy drive of *FauxStar* has an activity LED. You can configure the software so that the status of that LED corresponds to the Pi's activity LED. *FauxStar* also has a Maintenance Panel Display to show status codes. You need to edit `/boot/firmware/config.txt` to enable both. First, search for a line that says: `# Uncomment some or all of these to enable the optional hardware interfaces`. Then add or (uncomment) the line:
+
+	```
+	dtparam=i2c_arm=on
+	```
+
+	Next, add the following line at the end of the file to enable synchronization of the activity LED:
 
 	```
 	dtoverlay=act-led,gpio=17
 	```
-	After the next reboot, the floppy led will mirror the PI's activity LED. This is also useful when you are shutting down your system to know when it is ok to turn the power off.
+
+	After the next reboot, the maintenance panel will be enabled and the floppy led will mirror the PI's activity LED.
 
 * **Install the emulators**: Use the commands below to download core files and launch the *FauxStar* installation process. *FauxStar* can be installed into any directory you like. Navigate (`cd`) to that directory before executing the following commands. You will be asked which of the available emulators you want to install (mesa, smalltalk-80, lisp). Choose at least one.
 
@@ -89,6 +96,31 @@ Usage: ./fauxstar.sh [mesa|st80|lisp] [additional_parameters]
 ```
 
 For more detailed information about how to run the emulators, see the documentation for [Mesa](FauxStar_Mesa.md#usage), [Smalltalk-80](FauxStar_ST80.md#usage), and [Lisp](FauxStar_Lisp.md#usage)
+
+### Understanding the emulated display
+
+**Understanding display modes**
+
+The *FauxStar* model incoporates a 5" display with a native resolution of 640x480. That's not enough pixels to emulate the original display of the 8010 (or 6085) hardware, so you have some choices of how you want the display to work. There are more details in the documentation for each emulator, but this section gives an overview. In the example images, the colored boxes represent:
+
+* Yellow: The physical display. In the *FauxStar* model, this is a 5" display with a native resolution of 640x480. For an external display it might be 1920x1080.
+* Blue: The emulated display. For Mesa, this is 1152x861.
+* Green: The portal. The portal is the same resolution as the physical display.
+
+Variations:
+
+* If you connect *FauxStar* to a large external monitor instead of the model's 5" display, then the physical display will be larger than the emulated display.
+
+  [<img src="images/SW/modes/Fullscreen.png" height="128">](images/SW/modes/Fullscreen.png)
+
+* If you display on the model's 5" display, then the emulated display will be larger than the physical display. In this case you can choose either "clipped" mode or "portal" mode.
+	* **Clipped**. The physical display is smaller than the emulated display, so the emulated display is clipped to the bounds of the physical display.
+
+	  [<img src="images/SW/modes/FullscreenClipped.png" height="128">](images/SW/modes/FullscreenClipped.png)
+
+	* **Portal** (**recommended**). The physical display is smaller than the emulated display, and a portion of the emulated display is visible on the physical display. The portion which is visible (the portal) pans around smoothly with the mouse.
+
+     [<img src="images/SW/modes/Portal.png" height="128">](images/SW/modes/Portal.png)
 
 
 ## License: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
